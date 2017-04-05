@@ -1,0 +1,540 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><style type="text/css">.gm-err-container{height:100%;width:100%;display:table;background-color:#e0e0e0;position:relative;left:0;top:0}.gm-err-content{border-radius:1px;padding-top:0;padding-left:10%;padding-right:10%;position:static;vertical-align:middle;display:table-cell}.gm-err-content a{color:#4285f4}.gm-err-icon{text-align:center}.gm-err-title{margin:5px;margin-bottom:20px;color:#616161;font-family:Roboto,Arial,sans-serif;text-align:center;font-size:24px}.gm-err-message{margin:5px;color:#757575;font-family:Roboto,Arial,sans-serif;text-align:center;font-size:12px}.gm-err-autocomplete{padding-left:20px;background-repeat:no-repeat;background-size:15px 15px}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+	<title>Rode Kruis Dashboards</title>
+
+	<!-- General META -->
+	<meta charset="utf-8">
+	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<!-- Semantic META -->
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- Facebook META -->
+	<meta property="fb:app_id" content="APP_ID">
+	<meta property="og:site_name" content="Rode Kruis Dashboards">
+	<meta property="og:title" content="Rode Kruis Dashboards">
+	<meta property="og:description" content="">
+	<meta property="og:url" content="https:// profiles.510.global/">
+	<meta property="og:image" content="https:// profiles.510.global/img/brand/logo.png">
+	<meta property="og:type" content="website">
+
+	<!-- Twitter META -->
+	<meta name="twitter:title" content="Rode Kruis Dashboards">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:url" content="https:// profiles.510.global/">
+	<meta name="twitter:image" content="/img/brand/logo.png">
+
+	<!-- Fav Icon -->
+	<link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<!--Application CSS Files-->
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/forms-angular/css/forms-angular-with-bs3.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/custom/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/custom/leaflet/css/leaflet.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/cartodb.js/css/cartodb.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/angular/css/angular-csp.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/dcjs/css/dc.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/custom/dc-leaflet/css/dc-leaflet-legend.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/bower/angular-loading-bar/css/loading-bar.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/custom/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/build/custom/leaflet-search/css/leaflet-search.min.css">
+	<link rel="stylesheet" href="https://profiles.510.global/dist/application.min.css">
+	
+
+	<!-- HTML5 Shim -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+<style></style><link rel="stylesheet" type="text/css" href="moz-extension://c165f4b0-d317-42c3-b10b-464d6da1f680/skin/socialwidgets.css"><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/27/12/intl/nl_ALL/common.js"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/27/12/intl/nl_ALL/util.js"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/27/12/intl/nl_ALL/stats.js"></script></head>
+
+<body class="">
+	<!-- ngInclude: '/modules/core/views/header.client.view.html' --><header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse ng-scope"><div class="container ng-scope" data-ng-controller="HeaderController">
+	<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+
+		  <div class="navbar-header">
+			  <a class="navbar-brand" href="/#!/">
+				<img src="https://profiles.510.global/modules/dashboards/img/logo.svg" class="logo">
+				Community Profiles <span class="title-hightlight">Dashboard</span></a>
+		  </div>
+
+	  </nav>
+		  <!-- end: navbar-header -->
+	<!-- 
+	<div class="navbar-header navbar-default">
+		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
+			<span class="sr-only" translate>Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<div class="navbar-logo navbar-left">
+			<a class="navbar-brand" rel="home" title="Digital operations center">
+			   <img src="https://profiles.510.global/modules/core/img/brand/redcross.png" class="img-responsive">
+			</a>
+		</div>
+		<a href="/#!/" class="navbar-brand"><strong>Community Profiles</strong></a>
+	</div>
+	<nav class="collapse navbar-collapse  navbar-default" collapse="!isCollapsed" role="navigation">
+		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
+			<li data-ng-repeat="item in menu.items" data-ng-if="item.shouldRender(authentication.user) && item.title == 'Dashboards';" ui-route="{{item.uiRoute}}" ng-class="{active: $uiRoute}">
+				<a href="/#!/{{item.link}}"><strong>{{item.title}}</strong></a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
+			<li ui-route="/signup" ng-class="{active: $uiRoute}">
+				<a href="/#!/signup"><strong translate>Signup</strong></a>
+			</li>
+			<li class="divider-vertical"></li>
+			<li ui-route="/signin" ng-class="{active: $uiRoute}">
+				<a href="/#!/signin"><strong translate>Signin</strong></a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <strong>{{authentication.user.displayName}}</strong> <b class="caret"></b>
+                </a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="/#!/settings/profile" translate>Edit Profile</a>
+					</li>
+					<li>
+						<a href="/#!/settings/accounts" translate>Manage Social Accounts</a>
+					</li>
+					<li data-ng-show="authentication.user.provider === 'local'">
+						<a href="/#!/settings/password" translate>Change Password</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="/auth/signout" translate>Signout</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</nav> -->
+</div>
+</header>
+	<section class="content">
+		<section class="container-fluid">
+			
+	<!-- uiView:  --><section data-ui-view="" class="section-expand ng-scope"><section class="section-expand ng-scope" data-ng-controller="DistrictDashboardsController" data-ng-init="initiate()">
+	
+	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/#!/">
+				<img src="https://profiles.510.global/modules/dashboards/img/logo.svg" class="logo">
+				Community Risk Assessment <span class="title-hightlight">Toolbox</span>
+			</a>
+		</div>
+
+		<!-- start: export nav -->
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle export-button" data-toggle="dropdown" href="#">
+					<img class="export-icon" src="https://profiles.510.global/modules/dashboards/img/icon-download-options.svg" alt="download options">
+						  Export Options
+					<i class="fa fa-angle-down export-btn-arrow"></i>
+				</a>
+				<ul class="dropdown-menu export-items">
+					<li>
+						<a ng-href="./data/4,'PH','PH082614000" target="_blank" href="./data/4,'PH','PH082614000">Export (JSON)</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a id="download" ng-click="export_csv()">Export (CSV)</a>
+					</li>
+				</ul>
+				<!-- /.dropdown-tasks -->
+			</li>
+		</ul>
+		<!-- end: export nav -->
+	</nav>
+	<!-- end: navbar-header -->
+	
+	<div class="content-wrapper">
+	
+		<!-- start: sidebar -->
+		<div class="navbar-default sidebar" role="navigation">
+
+			<!-- start: community profiles -->
+			<div class="community-profiles-wrapper">
+				<div id="count-info" class="general-info dc-chart">
+					<div>
+						<span class="community-title ng-binding">Maslog</span>
+					</div>
+					<span class="filter-count ">12</span> / <span class="total-count ">12</span> <span style="font-size: 12px" class="ng-binding">Barangays selected</span>
+					<a class="reset-button" href="javascript:dc.filterAll();dc.redrawAll();" style="visibility: hidden;">Select all</a>
+				</div>
+				<div class="row"></div>
+				<div class="tablearea" id="general"><div class="row profile-item"><div class="col col-md-1"><img class="community-icon" src="https://profiles.510.global/modules/dashboards/img/population.png"></div><div class="col col-md-5 general-component-label ng-scope" ng-click="map_coloring('population')">Population</div><div class="col col-md-4" id="population">5,407 </div><div class="col col-md-2"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('population')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="row profile-item"><div class="col col-md-1"><img class="community-icon" src="https://profiles.510.global/modules/dashboards/img/density.png"></div><div class="col col-md-5 general-component-label ng-scope" ng-click="map_coloring('pop_density')">Population density</div><div class="col col-md-4" id="pop_density">19 per km<sup>2</sup></div><div class="col col-md-2"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('pop_density')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div></div>
+				<div class="row"></div>
+			</div>
+			<!-- end: community profiles -->
+
+			<!-- start: accordion with stats  -->
+			<div id="accordion" class="indicators-panels" role="tablist" aria-multiselectable="true">
+				<div class="card">
+					<div class="card-header" role="tab" id="headingOne">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+							<span class="panel-header-icon">
+								<img src="https://profiles.510.global/modules/dashboards/img/risk_score.png">
+							</span>
+							<span class="panel-header-content">
+								<span class="panel-header-title">Risk Score - <span class="component-score bad" id="risk_score_main">6.70</span>
+									<span class="score-helptext">/10</span>
+								</span>
+								<span class="panel-header-description">Overall composite risk score</span>
+							</span>
+						</a>
+					</div>
+
+					<div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+						<div class="card-block" id="scores"><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/risk_score.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('risk_score')">Risk score<div class="component-score bad" id="risk_score">6.70</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-risk_score" style="width:66.98681388221%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('risk_score')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/vulnerability.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('vulnerability_score')">Vulnerability<div class="component-score bad" id="vulnerability_score">6.72</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-vulnerability_score" style="width:67.2391189205924%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('vulnerability_score')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/hazards.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('hazard_score')">Hazards exposure<div class="component-score medium-bad" id="hazard_score">6.35</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar medium-bad" id="bar-hazard_score" style="width:63.5256710486527%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('hazard_score')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/coping.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('coping_capacity_score')">Lack of Coping Capacity<div class="component-score bad" id="coping_capacity_score">7.00</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-coping_capacity_score" style="width:69.96091033951559%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('coping_capacity_score')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div></div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" role="tab" id="headingTwo">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="Two" class="">
+							<span class="panel-header-icon">
+								<img src="https://profiles.510.global/modules/dashboards/img/vulnerability.png">
+							</span>
+							<span class="panel-header-content">
+								<span class="panel-header-title">Vulnerability Score - <span class="component-score bad" id="vulnerability_score_main">6.72</span>
+									<span class="score-helptext">/10</span>
+								</span>
+								<span class="panel-header-description">Click for vulnerability components</span>
+							</span>
+						</a>
+					</div>
+					<div id="collapseTwo" class="collapse in" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="true" style="">
+						<div class="card-block" id="vulnerability"><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/poverty.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('poverty_incidence')">Poverty incidence<div class="component-score bad" id="poverty_incidence">60.50%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-poverty_incidence" style="width:71.24260355029585%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('poverty_incidence')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/incomeclass.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('income_class')">Income class<div class="component-score bad" id="income_class">5.00</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-income_class" style="width:80%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('income_class')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/hdi.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('hdi')">Human development Index<div class="component-score bad" id="hdi">NaN</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-hdi" style="width:72.48%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('hdi')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/wall.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('perc_wall_partly_concrete')">(Partly) Concrete wall<div class="component-score bad" id="perc_wall_partly_concrete">13.10%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-perc_wall_partly_concrete" style="width:86.48648648648648%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('perc_wall_partly_concrete')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/roof.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('perc_roof_concrete_alu_iron')">Concrete/Iron/Aluminium roof<div class="component-score good" id="perc_roof_concrete_alu_iron">71.30%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar good" id="bar-perc_roof_concrete_alu_iron" style="width:33.29452852153667%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('perc_roof_concrete_alu_iron')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/undefined.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('pantawid_perc')">Pantawid (4P) beneficiaries<div class="component-score good" id="pantawid_perc">9.50%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar good" id="bar-pantawid_perc" style="width:33.45070422535211%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('pantawid_perc')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div></div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" role="tab" id="headingThree">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" class="collapsed">
+							<span class="panel-header-icon">
+								<img src="https://profiles.510.global/modules/dashboards/img/cyclone_wind.png">
+							</span>
+							<span class="panel-header-content">
+								<span class="panel-header-title">Hazard Score - <span class="component-score medium-bad" id="hazard_score_main">6.35</span>
+									<span class="score-helptext">/10</span>
+								</span>
+								<span class="panel-header-description">Click for hazard components</span>
+							</span>
+						</a>
+					</div>
+					<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+						<div class="card-block" id="hazard"><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/flood.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('flood_phys_exp')">Flood exposure<div class="component-score good" id="flood_phys_exp">0.00%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar good" id="bar-flood_phys_exp" style="width:0%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('flood_phys_exp')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/cyclone_wind.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('cyclone_phys_exp')">Cyclone exposure<div class="component-score bad" id="cyclone_phys_exp">35.40%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-cyclone_phys_exp" style="width:83.74443412757188%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('cyclone_phys_exp')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/earthquake.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('earthquake7_phys_exp')">Earthquake exposure<div class="component-score bad" id="earthquake7_phys_exp">17.80%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-earthquake7_phys_exp" style="width:89.53131041314082%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('earthquake7_phys_exp')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/tsunami.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('tsunami_phys_exp')">Tsunami exposure<div class="component-score good" id="tsunami_phys_exp">0.00%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar good" id="bar-tsunami_phys_exp" style="width:0%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('tsunami_phys_exp')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/drought.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('drought_phys_exp')">Drought exposure<div class="component-score bad" id="drought_phys_exp">58.50%</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-drought_phys_exp" style="width:77.64648531078083%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('drought_phys_exp')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div></div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" role="tab" id="headingFour">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" class="collapsed">
+							<span class="panel-header-icon">
+								<img src="https://profiles.510.global/modules/dashboards/img/coping.png">
+							</span>
+							<span class="panel-header-content">
+								<span class="panel-header-title">Coping Capacity Score - <span class="component-score bad" id="coping_capacity_score_main">7.00</span>
+									<span class="score-helptext">/10</span>
+								</span>
+								<span class="panel-header-description">Click for coping capacity components</span>
+							</span>
+						</a>
+					</div>
+					<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" aria-expanded="false">
+						<div class="card-block" id="coping"><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/hospital.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('health_density')">Nr. of facilities per 10,000 people<div class="component-score good" id="health_density">0.00</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar good" id="bar-health_density" style="width:0%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('health_density')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/governance.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('good_governance_index')">Good governance index<div class="component-score good" id="good_governance_index">372.80</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar good" id="bar-good_governance_index" style="width:21.39224947048666%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('good_governance_index')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div><div class="component-section"><div class="col-md-2"><img style="height:20px" src="https://profiles.510.global/modules/dashboards/img/traveltime.png"></div><div class="col-md-3 component-label ng-scope" ng-click="map_coloring('traveltime')">Travel time to nearest city<div class="component-score bad" id="traveltime">608</div></div><div class="col-md-5"><div class="component-scale"><div class="score-bar bad" id="bar-traveltime" style="width:92.23727574831511%"></div><img class="scale-icon" src="https://profiles.510.global/modules/dashboards/img/icon-scale.svg"></div></div><div class="col-sm-2 col-md-2 no-padding"><button type="button" class="btn-modal ng-scope" data-toggle="modal" ng-click="info('traveltime')"><img src="https://profiles.510.global/modules/dashboards/img/icon-popup.svg" style="height:17px"></button></div></div></div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" role="tab" id="headingFive">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" class="collapsed">
+							<span class="panel-header-icon">
+								<img src="https://profiles.510.global/modules/dashboards/img/undefined.png">
+							</span>
+							<span class="panel-header-content">
+								<span class="panel-header-title">Other variables</span>
+								<span class="panel-header-description">Not part of risk framework, but still relevant.</span>
+							</span>
+						</a>
+					</div>
+					<div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive" aria-expanded="false">
+						<div class="card-block" id="other"></div>
+					</div>
+				</div>
+				<div class="card"></div>
+			</div>
+			<!-- end: accordion with stats -->
+
+
+		</div>
+		<!-- end: sidebar -->
+
+		<!-- start: map -->
+		<div class="map-wrapper" style="position: relative">
+
+			<div id="map-chart" style="position:absolute; width:100%; height:100%" class="dc-chart leaflet-container leaflet-retina leaflet-fade-anim" tabindex="0"><div class="leaflet-map-pane" style="transform: translate3d(0px, -172px, 0px);"><div class="leaflet-tile-pane"><div class="leaflet-layer"><div class="leaflet-tile-container"></div><div class="leaflet-tile-container leaflet-zoom-animated"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(342px, 126px, 0px);" src="https://a.tile.openstreetmap.org/11/1735/954.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(598px, 126px, 0px);" src="https://a.tile.openstreetmap.org/11/1736/954.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(342px, -130px, 0px);" src="https://a.tile.openstreetmap.org/11/1735/953.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(598px, -130px, 0px);" src="https://a.tile.openstreetmap.org/11/1736/953.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(342px, 382px, 0px);" src="https://a.tile.openstreetmap.org/11/1735/955.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(598px, 382px, 0px);" src="https://a.tile.openstreetmap.org/11/1736/955.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(86px, 126px, 0px);" src="https://a.tile.openstreetmap.org/11/1734/954.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(854px, 126px, 0px);" src="https://a.tile.openstreetmap.org/11/1737/954.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(86px, -130px, 0px);" src="https://a.tile.openstreetmap.org/11/1734/953.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(854px, -130px, 0px);" src="https://a.tile.openstreetmap.org/11/1737/953.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(86px, 382px, 0px);" src="https://a.tile.openstreetmap.org/11/1734/955.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(854px, 382px, 0px);" src="https://a.tile.openstreetmap.org/11/1737/955.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(-170px, 126px, 0px);" src="https://a.tile.openstreetmap.org/11/1733/954.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(1110px, 126px, 0px);" src="https://a.tile.openstreetmap.org/11/1738/954.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(-170px, -130px, 0px);" src="https://a.tile.openstreetmap.org/11/1733/953.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(1110px, -130px, 0px);" src="https://a.tile.openstreetmap.org/11/1738/953.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(-170px, 382px, 0px);" src="https://a.tile.openstreetmap.org/11/1733/955.png"><img class="leaflet-tile leaflet-tile-loaded" style="height: 256px; width: 256px; transform: translate3d(1110px, 382px, 0px);" src="https://a.tile.openstreetmap.org/11/1738/955.png"></div></div></div><div class="leaflet-objects-pane"><div class="leaflet-shadow-pane"></div><div class="leaflet-overlay-pane"><svg class="leaflet-zoom-animated" style="transform: translate3d(-348px, 113px, 0px);" width="1977" height="335" viewBox="-348 113 1977 335"><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#f1eef6" fill-opacity="1" class="leaflet-clickable" d="M730 245L719 261L691 316L648 293L698 218z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#f1eef6" fill-opacity="1" class="leaflet-clickable" d="M698 218L648 293L623 246L635 237L639 228L643 226L648 226L658 218L667 191z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#045a8d" fill-opacity="1" class="leaflet-clickable" d="M589 272L589 290L578 383L534 351L537 341L536 274L538 274L540 270L540 262L542 259L551 253L560 254L568 261L569 265L572 265L577 262L584 272z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#bdc9e1" fill-opacity="1" class="leaflet-clickable" d="M648 293L666 302L619 411L578 383z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#bdc9e1" fill-opacity="1" class="leaflet-clickable" d="M691 316L676 372L671 414L671 435L672.8571428571429 448L671.578947368421 448L619 411L666 302z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#74a9cf" fill-opacity="1" class="leaflet-clickable" d="M690.5 113L708 138L644 170L577 201L533 219L535 187L540 181L553 175L578 168L582 162L582 159L676.7058823529412 113z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#045a8d" fill-opacity="1" class="leaflet-clickable" d="M534 351L671.578947368421 448L642 444L592 448L537.9787234042553 448L536 376z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#2b8cbe" fill-opacity="1" class="leaflet-clickable" d="M716 147L747 191L737 237L730 245L644 170L708 138z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#f1eef6" fill-opacity="1" class="leaflet-clickable" d="M577 201L589 272L584 272L577 262L572 265L569 265L568 261L563 256L560 254L552 253L548 254L542 259L540 262L540 270L538 274L536 274L533 219z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#045a8d" fill-opacity="1" class="leaflet-clickable" d="M637 274L648 293L578 383L589 290L632 276z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#2b8cbe" fill-opacity="1" class="leaflet-clickable" d="M637 274L589 290L589 272L593 272L599 276L602 276L601 265L603 257L601 253L598 251L599 249L610 238L615 239L618 241L620 245L623 246z"></path></g><g><path stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" stroke="gray" stroke-opacity="0.8" stroke-width="1" fill="#74a9cf" fill-opacity="1" class="leaflet-clickable" d="M667 191L658 218L648 226L643 226L639 228L635 237L623 246L620 245L618 241L615 239L610 238L598 251L601 253L603 257L601 265L602 275L599 276L593 272L589 272L577 201L644 170z"></path></g></svg></div><div class="leaflet-marker-pane"></div><div class="leaflet-popup-pane"></div></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a></div></div><div class="leaflet-top leaflet-right"><div class="hdx-3w-info leaflet-control">Hover for name</div></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | © <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div></div> 
+			
+			<!-- start: zoom navigation -->
+			<div class="zoom-level-nav col-md-7">
+				<div class="btn-group zoom-level" role="group">
+					<button style="background-color: #1a9641; color:white" type="button" class="btn btn-secondary">
+						<i class="fa fa-tachometer" aria-hidden="true"></i>
+						<span class="button-label ng-binding">Population</span>
+					</button>
+					<button id="level2" type="button" class="btn btn-secondary btn-active " ng-click="zoom_out(2)">
+						<i class="fa fa-globe" aria-hidden="true"></i>
+						<span class="button-label ng-binding">The Philippines</span>
+					</button>
+					<button id="level3" type="button" class="btn btn-secondary btn-active" ng-click="zoom_out(3)">
+						<i class="fa fa-th-large" aria-hidden="true"></i>
+						<span class="button-label ng-binding">Eastern Samar</span>
+					</button>
+					<button id="level4" type="button" class="btn btn-secondary btn-active">
+						<i class="fa fa-th" aria-hidden="true"></i>
+						<span class="button-label ng-binding">Maslog</span>
+					</button>
+				</div>
+			</div>
+			<!-- end: zoom navigation -->
+			
+
+			<!-- the above div and inline styles are only for placement -->
+			<div id="mapPopup" class="map-popup" style="position: absolute; visibility: hidden; left: 400px; top: 100px;">
+				<div class="popup-header ng-binding">Maslog
+					<button id="zoomin_icon" type="button" class="btn-modal" data-toggle="modal" ng-click="zoom_in()" style="visibility: hidden;">
+						<i class="fa fa-search-plus pull-right big-icon"></i>
+					</button>
+				</div>
+				<div class="popup-score ng-binding">
+				  <div class="score-label ng-binding">Population</div>
+				  6.70
+				</div>
+			  </div>
+			  
+			
+			<!-- start: slide out tab for province selection -->
+            <!-- <div class="slide-out-tab-province">
+				<a class="handle" href="#"><span class="handle-label">{{subtype_selection}} Selection</span></a>
+				<div class="slideout-content-wrapper" style="height: 500px; overflow: auto">
+					<div>
+						<h4>Select {{subtype_selection}}</h4>
+						<a style="color: #3780bb; font-size: 12px" href="javascript:dc.filterAll();dc.redrawAll();">(Select all)</a>
+					</div>
+					<div id='tab-chart'></div>
+					<div class="options-list">
+						<ul>
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+
+							<li>
+								<label class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input">
+									<span class="custom-control-indicator"></span>
+									<span class="list-label">Project name 1</span>
+								</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div> -->
+			<!-- end: slideout tab for province selection-->
+
+			<!-- start: slide out tab for legend -->
+			<!-- <div class="slide-out-tab-legend">
+				<a class="handle-legend" href="#"><span class="handle-label">Legend</span></a>
+				<div class="slideout-content-wrapper">
+					<h4>Legend</h4>
+				</div>
+			</div> -->
+			<!-- end: slideout tab for legend-->
+
+
+		</div>
+		<!-- end: map -->
+
+	</div>
+
+	<!-- start: risk score modal -->
+	<div id="infoModal" class="modal sidebar-modal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<i class="fa fa-times-circle-o" aria-hidden="true"></i>
+					</button>
+					<span class="panel-header-icon">
+						<img src="">
+					</span>
+					<h3 class="modal-title ng-binding">Population</h3>
+				</div>
+				<div class="modal-body">
+					<h5 class="ng-binding"><b>Year source:</b> </h5><br>
+					<h5><b>Source link:</b> <a href="" target="_blank" class="ng-binding"></a></h5><br>
+					<h5 class="ng-binding"><b>Description:</b> </h5><br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end: risk score modal -->
+	
+	<!-- start: phone device message -->
+	<div class="mobile-message">
+		<p>For best experience please use a tablet device, laptop or desktop computer.
+			<a href="/#!/" class="btn link-button" role="button">Dashboard Homepage</a>
+		</p>
+	</div>
+	<!-- end: phone device message -->
+
+	<!-- start: IE message -->
+	<div id="IEmodal" class="modal sidebar-modal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<i class="fa fa-times-circle-o" aria-hidden="true"></i>
+					</button>
+					<h3 class="modal-title">Warning</h3>
+				</div>
+				<div class="modal-body">
+					<p>This beta-version is currently best viewed in Google Chrome, and second-best in Firefox or Safari. Internet Explorer works, but has substantial interaction downsides.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end: IE message -->
+	
+</section>
+
+
+
+</section>
+
+		</section>
+	</section>
+	<div id="ribbon1"><img class="share" src="https://profiles.510.global/modules/core/img/ribbon.png" alt="now in beta" height="105" width="70"></div>
+	<div id="ribbon2"><a href="https://gitter.im/community_profiles/Lobby#" target="_blank">Give feedback!</a></div>
+	<div id="ribbon3"><a href="https://github.com/rodekruis/communityprofiles" target="_blank">Find us on Github</a></div>
+
+
+	<!--Embedding The User Object-->
+	<script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" style="">
+		var user = "";
+	</script>
+	<script>
+		var ie = (function(){
+			var undef,rv = -1; // Return value assumes failure.
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf('MSIE ');
+			var trident = ua.indexOf('Trident/');
+
+			if (msie > 0) {
+				// IE 10 or older => return version number
+				rv = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+			} else if (trident > 0) {
+				// IE 11 (or newer) => return version number
+				var rvNum = ua.indexOf('rv:');
+				rv = parseInt(ua.substring(rvNum + 3, ua.indexOf('.', rvNum)), 10);
+			}
+
+			return ((rv > -1) ? rv : undef);
+		}());
+		if (ie) {
+			L_PREFER_CANVAS = true;
+		}
+	</script>
+
+	<!--Application JavaScript Files-->
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/jquery/js/jquery.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/slick/js/slick.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/crossfilter/js/crossfilter.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/lodash/js/lodash.underscore.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular/js/angular.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-lodash/js/angular-lodash.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-route/js/angular-route.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-resource/js/angular-resource.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-cookies/js/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-touch/js/angular-touch.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-sanitize/js/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-ui-router/js/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-bootstrap/js/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/leaflet/js/leaflet.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-leaflet-directive/js/angular-leaflet-directive.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/leaflet-search/js/leaflet-search.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/leaflet-ajax/js/leaflet.ajax.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-gettext/js/angular-gettext.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/dist/translations.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/Snap.svg/js/snap.svg-min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/d3/js/d3.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/dcjs/js/dc.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/dc-leaflet/js/dc-leaflet-dev.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/leaflet-stamen/tile.stamen.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/angular-dc/js/angular-dc.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/forms-angular/js/forms-angular.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-messages/js/angular-messages.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/ngInfiniteScroll/js/ng-infinite-scroll.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-elastic/js/elastic.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/underscore/js/underscore.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/angular-loading-bar/js/loading-bar.min.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/leaflet-gps/js/leaflet-gps.min.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=true"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/cartodb.js/js/cartodb_noleaflet.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/custom/jquery-tabslideout/js/tabSlideOut.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/jquery-countTo/js/jquery.countTo.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/build/bower/topojson/js/topojson.js"></script>
+	<script type="text/javascript" src="https://profiles.510.global/dist/application.min.js"></script>
+</body></html>
