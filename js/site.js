@@ -666,7 +666,7 @@ d3.json("data/province_data.json", function(ind_prov){
 					popup.style.visibility = 'hidden';
 					document.getElementById('zoomin_icon').style.visibility = 'hidden';
 					if (filters.length > mapfilters_length) {
-						$apply(function() {
+						//$apply(function() {
 							name_popup = lookup[filters[filters.length - 1]];
 							for (var i=0;i<d.Rapportage.length;i++) {
 								var record = d.Rapportage[i];
@@ -676,7 +676,7 @@ d3.json("data/province_data.json", function(ind_prov){
 								};
 							}
 							metric_label = meta_label[metric];
-						})
+						//})
 						//In Firefox event is not a global variable >> Not figured out how to fix this, so gave the popup a fixed position in FF only
 						if (typeof event !== 'undefined') {
 							popup.style.left = event.pageX + 'px';	

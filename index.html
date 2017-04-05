@@ -36,7 +36,7 @@
 	<!--<link rel="stylesheet" href="public/build/custom/leaflet/css/leaflet.css">-->
 	<link rel="stylesheet" href="public/build/bower/cartodb.js/css/cartodb.css">
 	<!-- <link rel="stylesheet" href="public/build/bower/angular/css/angular-csp.css"> -->
-	<link rel="stylesheet" href="public/build/bower/mdi/css/materialdesignicons.min.css">
+	<!-- <link rel="stylesheet" href="public/build/bower/mdi/css/materialdesignicons.min.css"> -->
 	<link rel="stylesheet" href="public/build/bower/dcjs/css/dc.css">
 	<!--<link rel="stylesheet" href="public/build/custom/dc-leaflet/css/dc-leaflet-legend.min.css">-->
 	<!-- <link rel="stylesheet" href="public/build/bower/angular-loading-bar/css/loading-bar.min.css"> -->
@@ -64,59 +64,7 @@
 
 	  </nav>
 		  <!-- end: navbar-header -->
-	<!-- 
-	<div class="navbar-header navbar-default">
-		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
-			<span class="sr-only" translate>Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<div class="navbar-logo navbar-left">
-			<a class="navbar-brand" rel="home" title="Digital operations center">
-			   <img src="https://profiles.510.global/modules/core/img/brand/redcross.png" class="img-responsive">
-			</a>
-		</div>
-		<a href="/#!/" class="navbar-brand"><strong>Community Profiles</strong></a>
-	</div>
-	<nav class="collapse navbar-collapse  navbar-default" collapse="!isCollapsed" role="navigation">
-		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
-			<li data-ng-repeat="item in menu.items" data-ng-if="item.shouldRender(authentication.user) && item.title == 'Dashboards';" ui-route="{{item.uiRoute}}" ng-class="{active: $uiRoute}">
-				<a href="/#!/{{item.link}}"><strong>{{item.title}}</strong></a>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
-			<li ui-route="/signup" ng-class="{active: $uiRoute}">
-				<a href="/#!/signup"><strong translate>Signup</strong></a>
-			</li>
-			<li class="divider-vertical"></li>
-			<li ui-route="/signin" ng-class="{active: $uiRoute}">
-				<a href="/#!/signin"><strong translate>Signin</strong></a>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <strong>{{authentication.user.displayName}}</strong> <b class="caret"></b>
-                </a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="/#!/settings/profile" translate>Edit Profile</a>
-					</li>
-					<li>
-						<a href="/#!/settings/accounts" translate>Manage Social Accounts</a>
-					</li>
-					<li data-ng-show="authentication.user.provider === 'local'">
-						<a href="/#!/settings/password" translate>Change Password</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="/auth/signout" translate>Signout</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</nav> -->
+	
 </div>
 </header>
 	<section class="content">
@@ -314,15 +262,15 @@
 			
 
 			<!-- the above div and inline styles are only for placement -->
-			<div id="mapPopup" class="map-popup" style="position: absolute; visibility: hidden; left: 400px; top: 100px;">
-				<div class="popup-header ng-binding">Maslog
-					<button id="zoomin_icon" type="button" class="btn-modal" data-toggle="modal" ng-click="zoom_in()" style="visibility: hidden;">
+			<div id="mapPopup" class="map-popup" style="position:absolute;">
+				<div class="popup-header">{{name_popup}}
+					<button id="zoomin_icon" type="button" class="btn-modal" data-toggle="modal" onclick="zoom_in()">
 						<i class="fa fa-search-plus pull-right big-icon"></i>
 					</button>
 				</div>
-				<div class="popup-score ng-binding">
-				  <div class="score-label ng-binding">Population</div>
-				  6.70
+				<div class="popup-score">
+				  <div class="score-label">{{metric_label}}</div>
+				  {{value_popup}}
 				</div>
 			  </div>
 	
@@ -392,9 +340,6 @@
 
 		</section>
 	</section>
-	<div id="ribbon1"><img class="share" src="https://profiles.510.global/modules/core/img/ribbon.png" alt="now in beta" height="105" width="70"></div>
-	<div id="ribbon2"><a href="https://gitter.im/community_profiles/Lobby#" target="_blank">Give feedback!</a></div>
-	<div id="ribbon3"><a href="https://github.com/rodekruis/communityprofiles" target="_blank">Find us on Github</a></div>
 
 
 	<!--Embedding The User Object-->
@@ -440,12 +385,12 @@
 	<script type="text/javascript" src="public/build/bower/bootstrap/js/bootstrap.min.js"></script>
 <!-- 	<script type="text/javascript" src="public/build/bower/angular-bootstrap/js/ui-bootstrap-tpls.js"></script>
  -->	<script type="text/javascript" src="public/build/bower/leaflet/js/leaflet.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-leaflet-directive/js/angular-leaflet-directive.min.js"></script>
+	<!-- <script type="text/javascript" src="public/build/bower/angular-leaflet-directive/js/angular-leaflet-directive.min.js"></script> -->
 	<!--<script type="text/javascript" src="public/build/custom/leaflet-search/js/leaflet-search.min.js"></script>-->
 	<script type="text/javascript" src="public/build/bower/leaflet-ajax/js/leaflet.ajax.js"></script>
 	<!-- <script type="text/javascript" src="public/build/bower/angular-gettext/js/angular-gettext.js"></script> -->
-	<script type="text/javascript" src="dist/translations.js"></script>
-	<script type="text/javascript" src="public/build/bower/Snap.svg/js/snap.svg-min.js"></script>
+	<!-- <script type="text/javascript" src="dist/translations.js"></script> -->
+	<!-- <script type="text/javascript" src="public/build/bower/Snap.svg/js/snap.svg-min.js"></script> -->
 	<script type="text/javascript" src="public/build/bower/d3/js/d3.min.js"></script>
 	<script type="text/javascript" src="public/build/bower/dcjs/js/dc.min.js"></script>
 	<script type="text/javascript" src="public/build/custom/dc-leaflet/js/dc-leaflet-dev.js"></script>
@@ -460,7 +405,7 @@
 	<script type="text/javascript" src="public/build/bower/leaflet-gps/js/leaflet-gps.min.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=true"></script>
 	<script type="text/javascript" src="public/build/bower/cartodb.js/js/cartodb_noleaflet.js"></script>
-	<script type="text/javascript" src="public/build/bower/topojson/js/topojson.js"></script>
+	<!-- <script type="text/javascript" src="public/build/bower/topojson/js/topojson.js"></script> -->
 	<script type="text/javascript" src="js/site.js"></script>
 
 </body></html>
