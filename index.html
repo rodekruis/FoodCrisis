@@ -40,7 +40,7 @@
 	<link rel="stylesheet" href="public/build/bower/dcjs/css/dc.css">
 	<!--<link rel="stylesheet" href="public/build/custom/dc-leaflet/css/dc-leaflet-legend.min.css">-->
 	<!-- <link rel="stylesheet" href="public/build/bower/angular-loading-bar/css/loading-bar.min.css"> -->
-	<!--<link rel="stylesheet" href="public/build/custom/font-awesome/css/font-awesome.min.css">-->
+	<link rel="stylesheet" href="public/build/custom/font-awesome/css/font-awesome.min.css">
 	<!--<link rel="stylesheet" href="public/build/custom/leaflet-search/css/leaflet-search.min.css">-->
 	<link rel="stylesheet" href="css/dashboards.css">
 	<link rel="stylesheet" href="css/core.css">
@@ -95,7 +95,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a id="download" ng-click="export_csv()">Export (CSV)</a>
+						<a id="download" onclick="export_csv()">Export (CSV)</a>
 					</li>
 				</ul>
 				<!-- /.dropdown-tasks -->
@@ -114,9 +114,9 @@
 			<div class="community-profiles-wrapper">
 				<div id="count-info" class="general-info">
 					<div>
-						<span class="community-title" id="jquery-test">{{name_selection}}</span>
+						<span class="community-title name_selection">{{name_selection}}</span>
 					</div>
-					<span class="filter-count "></span> / <span class="total-count "></span> <span style="font-size: 12px">{{subtype_selection}} selected</span>
+					<span class="filter-count "></span> / <span class="total-count "></span> <span style="font-size: 12px"><span class="subtype_selection">{{subtype_selection}}</span> selected</span>
 					<a class="reset-button" href="javascript:dc.filterAll();dc.redrawAll();">Select all</a>
 				</div>
 				<div class="row"></div>
@@ -242,19 +242,19 @@
 				<div class="btn-group zoom-level" role="group">
 					<button style="background-color: #1a9641; color:white" type="button" class="btn btn-secondary">
 						<i class="fa fa-tachometer" aria-hidden="true"></i>
-						<span class="button-label" id="metric_label">{{metric_label}}</span>
+						<span class="button-label metric_label">{{metric_label}}</span>
 					</button>
-					<button id="level2" type="button" class="btn btn-secondary btn-active " ng-click="zoom_out(2)">
+					<button id="level2" type="button" class="btn btn-secondary btn-active " onclick="zoom_out(2)">
 						<i class="fa fa-globe" aria-hidden="true"></i>
-						<span class="button-label">{{country_selection}}</span>
+						<span class="button-label country_selection">{{country_selection}}</span>
 					</button>
-					<button id="level3" type="button" class="btn btn-secondary" ng-click="zoom_out(3)">
+					<button id="level3" type="button" class="btn btn-secondary" onclick="zoom_out(3)">
 						<i class="fa fa-th-large" aria-hidden="true"></i>
-						<span class="button-label">{{level2_selection}}</span>
+						<span class="button-label level2_selection">{{level2_selection}}</span>
 					</button>
 					<button id="level4" type="button" class="btn btn-secondary">
 						<i class="fa fa-th" aria-hidden="true"></i>
-						<span class="button-label">{{level3_selection}}</span>
+						<span class="button-label level3_selection">{{level3_selection}}</span>
 					</button>
 				</div>
 			</div>
@@ -263,16 +263,16 @@
 
 			<!-- the above div and inline styles are only for placement -->
 			<div id="mapPopup" class="map-popup" style="position:absolute;">
-				<div class="popup-header">{{name_popup}}
+				<div class="popup-header"><span class="name_popup">{{name_popup}}</span>
 					<button id="zoomin_icon" type="button" class="btn-modal" data-toggle="modal" onclick="zoom_in()">
 						<i class="fa fa-search-plus pull-right big-icon"></i>
 					</button>
 				</div>
 				<div class="popup-score">
-				  <div class="score-label">{{metric_label}}</div>
-				  {{value_popup}}
+				  <div class="score-label"><span class="metric_label">{{metric_label}}</span></div>
+				  <span class="value_popup">{{value_popup}}</span>
 				</div>
-			  </div>
+			</div>
 	
 
 
@@ -293,12 +293,12 @@
 					<span class="panel-header-icon">
 						<img src="{{metric_icon}}">
 					</span>
-					<h3 class="modal-title">{{metric_label}}</h3>
+					<h3 class="modal-title"><span class="metric_label">{{metric_label}}</span></h3>
 				</div>
 				<div class="modal-body">
-					<h5><b>Year source:</b> {{metric_year}}</h5><br>
-					<h5><b>Source link:</b> <a href={{metric_source}} target="_blank">{{metric_source}}</a></h5><br>
-					<h5><b>Description:</b> {{metric_desc}}</h5><br>
+					<h5><b>Year source:</b> <span class="metric_year">{{metric_year}}</span></h5><br>
+					<h5><b>Source link:</b> <a href={{metric_source}} target="_blank"><span class="metric_source">{{metric_source}}</a></h5><br>
+					<h5><b>Description:</b> <span class="metric_desc">{{metric_desc}}</span></h5><br>
 				</div>
 			</div>
 		</div>
