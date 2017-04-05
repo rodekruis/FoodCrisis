@@ -5,8 +5,6 @@
   "dependencies": {
     "bootstrap": "3.3.6",
     "jquery": "~2.2.3",
-	"jquery-countTo": "*",
-	"jquery-tabslideout": "*",
     "leaflet": "0.7.7",
     "cartodb.js": "3.15.9",
     "materialize": "0.97.6",
