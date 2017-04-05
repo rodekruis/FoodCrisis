@@ -660,7 +660,7 @@ d3.json("data/province_data.json", function(ind_prov){
 				.renderPopup(true)
 				.turnOnControls(true)
 				//Set up what happens when clicking on the map (popup appearing mainly)
-/*				.on('filtered',function(chart,filters){
+				.on('filtered',function(chart,filters){
 					filters = chart.filters();
 					var popup = document.getElementById('mapPopup');
 					popup.style.visibility = 'hidden';
@@ -701,7 +701,7 @@ d3.json("data/province_data.json", function(ind_prov){
 					}
 					
 				})
-*/			;
+			;
 			
 				
 			///////////////////////////
