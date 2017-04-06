@@ -3,7 +3,7 @@
 //Define variables
 var country_code = 'All';
 var admlevel = 2;				// NOTE: For now, I keep the admlevels in the code as 2-4 instead of 0-2 which is the actual data. The principal works the same, and it keeps me from having to adjust everything now..
-var metric = 'population';
+var metric = 'pop_density';
 var metric_label = '';
 var metric_year = '';
 var metric_source = '';
@@ -183,6 +183,7 @@ var generateCharts = function (d){
 	if (metric === '') { 
 		metric = country_default_metric[country_code]; 
 	}
+	console.log(metric);
 	if (admlevel == zoom_min) { 
 		name_selection = country_name[country_code]; 
 		for (var i=0;i<$('.name_selection').length;i++){ $('.name_selection')[i].innerHTML = name_selection; };
@@ -707,7 +708,7 @@ var generateCharts = function (d){
 		.geojson(d.Districts)					
 		.colors(d3.scale.quantile()
 				.domain(quantile_range)
-				.range(['#f1eef6','#bdc9e1','#74a9cf','#2b8cbe','#045a8d']))
+				.range(['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026']))
 		.colorCalculator(function(d){
 			return d ? mapChart.colors()(d) : '#cccccc';
 		})
@@ -838,7 +839,7 @@ var generateCharts = function (d){
 			.group(whereGroupSum_scores)				
 			.colors(d3.scale.quantile()
 					.domain(quantile_range)
-					.range(['#f1eef6','#bdc9e1','#74a9cf','#2b8cbe','#045a8d']))
+					.range(['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026']))
 			.colorCalculator(function(d){
 				return d ? mapChart.colors()(d) : '#cccccc';
 			})
