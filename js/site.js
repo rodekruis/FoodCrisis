@@ -1,8 +1,8 @@
 
 
 //Define variables
-var country_code = 'PH';
-var admlevel = 2;
+var country_code = 'All';
+var admlevel = 2;				// NOTE: For now, I keep the admlevels in the code as 2-4 instead of 0-2 which is the actual data. The principal works the same, and it keeps me from having to adjust everything now..
 var metric = 'population';
 var metric_label = '';
 var metric_year = '';
@@ -39,16 +39,17 @@ var config =  {
 
 var load_dashboard = function() {
 	  
-	//Load data  
+	//Load data
 	var d = {};
 	d3.dsv(';')("data/metadata_prototype.csv", function(metadata){
 		var meta = metadata;
 		d.Metadata = $.grep(meta, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
 		d3.dsv(';')("data/country_metadata.csv", function(metadata_country){
 			d.Country_meta = metadata_country;
-			d3.json("data/ind_level" + admlevel + ".json", function(ind_data){
+			d3.dsv(';')("data/ind_level" + (admlevel - 2) + ".csv", function(ind_data){
+				ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
 				d.Rapportage = ind_data;
-				d3.json("data/geo_level" + admlevel + ".json", function (geo_data) {
+				d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
 					d.Districts = geo_data;
 					console.log(d);
 				  
@@ -68,24 +69,22 @@ var load_dashboard = function() {
 
 var reload_dashboard = function(d) {
 	  
-	console.log(admlevel);
-	console.log(parent_code);
 	//Load data  
-	d3.json("data/ind_level" + admlevel + ".json", function(ind_data){
-		// d.Rapportage = ind_data;
+	d3.dsv(';')("data/ind_level" +  (admlevel - 2)  + ".csv", function(ind_data){
+		ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
 		var Rapportage_temp = ind_data;
 		if (admlevel == 2) {
 			d.Rapportage = Rapportage_temp;
 		} else {
-			d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcode_parent == parent_code; });
+			d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
 		};
-		d3.json("data/geo_level" + admlevel + ".json", function (geo_data) {
+		d3.json("data/geo_level" +  (admlevel - 2)  + ".json", function (geo_data) {
 			//d.Districts = geo_data;
 			var Districts_temp = geo_data;
 			if (admlevel == 2) {
 				d.Districts.features = Districts_temp.features;
 			} else {
-				d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; });
+				d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.properties.pcode_parent) > -1;}); 
 			};
 			console.log(d);
 		  
@@ -184,8 +183,8 @@ var generateCharts = function (d){
 	if (metric === '') { 
 		metric = country_default_metric[country_code]; 
 	}
-	if (admlevel === 2) { 
-		var name_selection = country_name[country_code]; 
+	if (admlevel == zoom_min) { 
+		name_selection = country_name[country_code]; 
 		for (var i=0;i<$('.name_selection').length;i++){ $('.name_selection')[i].innerHTML = name_selection; };
 	}
 	if (zoom_max < 4) {document.getElementById('level4').style.visibility = 'hidden'; }			
@@ -205,13 +204,14 @@ var generateCharts = function (d){
 	var metric_label = meta_label[metric];
 	for (var i=0;i<$('.metric_label').length;i++){ $('.metric_label')[i].innerHTML = metric_label; };	
 	
-	
 	if (admlevel === 2) {
 		type_selection = 'Country';
 		subtype_selection = country_level2[country_code]; 
 		for (var i=0;i<$('.subtype_selection').length;i++){ $('.subtype_selection')[i].innerHTML = subtype_selection; };
 		level2_selection = undefined;
+		for (var i=0;i<$('.level2_selection').length;i++){ $('.level2_selection')[i].innerHTML = level2_selection; };
 		level3_selection = undefined;
+		for (var i=0;i<$('.level3_selection').length;i++){ $('.level3_selection')[i].innerHTML = level3_selection; };
 		level2_code = '';
 		level3_code = '';
 	} else if (admlevel === 3) {
@@ -219,14 +219,17 @@ var generateCharts = function (d){
 		subtype_selection = country_level3[country_code]; 
 		for (var i=0;i<$('.subtype_selection').length;i++){ $('.subtype_selection')[i].innerHTML = subtype_selection; };
 		level2_selection = name_selection;
+		for (var i=0;i<$('.level2_selection').length;i++){ $('.level2_selection')[i].innerHTML = level2_selection; };
 		level2_code = parent_code;
 		level3_selection = undefined;
+		for (var i=0;i<$('.level3_selection').length;i++){ $('.level3_selection')[i].innerHTML = level3_selection; };
 		level3_code = '';
 	} else if (admlevel === 4) {
 		type_selection = country_level3[country_code]; 
 		subtype_selection = country_level4[country_code]; 
 		for (var i=0;i<$('.subtype_selection').length;i++){ $('.subtype_selection')[i].innerHTML = subtype_selection; };
 		level3_selection = name_selection;
+		for (var i=0;i<$('.level3_selection').length;i++){ $('.level3_selection')[i].innerHTML = level3_selection; };
 		level3_code = parent_code;
 	}
 	
@@ -776,6 +779,7 @@ var generateCharts = function (d){
 			parent_code_prev = parent_code;
 			name_selection_prev = name_selection;
 			window.parent_code = filters[filters.length - 1];
+			parent_code_arr = filters;
 			name_selection = lookup[parent_code];
 			for (var i=0;i<$('.name_selection').length;i++){ $('.name_selection')[i].innerHTML = name_selection; };
 			if (admlevel == zoom_max) {
