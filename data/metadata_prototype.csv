@@ -1,4 +1,7 @@
 country_code;variable;label;unit;format;icon_src;year;source_link;description;group;agg_method;weight_var;scorevar_name
 All;population;Population;;decimal0;population.png;2015;http://www.worldpop.org.uk/data/summary/?contselect=Africa&countselect=Whole+Continent&typeselect=Population+2000-2020;;general;sum;;
-All;land_area;Land area;km<sup>2</sup>;decimal0;area.png;2015;;;;sum;;
 All;pop_density;Population density;per km<sup>2</sup>;decimal0;density.png;2015;http://www.worldpop.org.uk/data/summary/?contselect=Africa&countselect=Whole+Continent&typeselect=Population+2000-2020;;general;weighted_avg;land_area;
+All;3W_activities;3W activities;#;decimal0;;2017;;# of 3W activities in this operation;group3W;sum;;
+All;3W_FSL;FSL activities;#;decimal0;;2017;;# of 3W FSL (Food distribution) activities in this operation;group3W;sum;;
+All;3W_Health;Health activities;#;decimal0;;2017;;# of 3W Health activities in this operation;group3W;sum;;
+All;3W_WASH;WASH activities;#;decimal0;;2017;;# of 3W WASH activities in this operation;group3W;sum;;

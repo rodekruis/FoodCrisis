@@ -1,6 +1,6 @@
-pcode;name;population;land_area;pop_density
-SSD;South Sudan;12355127;637591;19.38
-SOM;Somalia;10723364;642490;16.69
-NGA;Nigeria;181910009;927886;196.05
-KEN;Kenya;46020537;590388;77.95
-ETH;Ethiopia;99318640;1151051;86.29
+pcode;name;population;land_area;pop_density;3W_activities;3W_WASH;3W_Health;3W_FSL
+SSD;South Sudan;12355127;637591;19.38;8;8;0;0
+SOM;Somalia;10723364;642490;16.69;3;2;1;0
+NGA;Nigeria;181910009;927886;196.05;1;0;0;1
+KEN;Kenya;46020537;590388;77.95;10;1;2;7
+ETH;Ethiopia;99318640;1151051;86.29;5;4;0;1

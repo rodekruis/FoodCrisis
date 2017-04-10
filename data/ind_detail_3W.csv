@@ -1,0 +1,28 @@
+country;adm1;adm2;adm3;locality;pcode0;pcode1;pcode2;organisation;sector;description;date;status;link
+Somalia;;;;Matabaan;SOM;SOM8;;ICRC;WASH;Boreholes for animals;1-3-2017;ongoing;
+Somalia;;;;Garowe;SOM;SOM12;SOM12-49;ICRC;WASH;Building surface dams;1-3-2017;ongoing;
+South Sudan;;;;Lologo in Juba;SSD;SSD1;SSD1-1;ICRC;WASH;Emergency water treatment plant;1-3-2017;ongoing;
+South Sudan;;;;Juba;SSD;SSD1;SSD1-1;ICRC / Sudan RC;WASH;Distribution of clean water via treatment plant;1-3-2017;ongoing;
+Somalia;Sanaag;;;;SOM;SOM13;;IFRC;Health;Healthcare service;1-8-2016;ongoing;
+Ethiopia;Addis Abeba;;;;ETH;ETH1;;Ethiopean Red Cross;WASH;Hygiene;1-8-2016;ongoing;https://www.humanitarianresponse.info/system/files/documents/files/14_3w_wash_100616_a4.pdf
+Ethiopia;Oromia;;;;ETH;ETH8;;Ethiopean Red Cross;WASH;Hygiene;1-8-2016;ongoing;https://www.humanitarianresponse.info/system/files/documents/files/14_3w_wash_100616_a4.pdf
+Ethiopia;Oromia;;;;ETH;ETH8;;Ethiopean Red Cross;WASH;Water;1-8-2016;ongoing;https://www.humanitarianresponse.info/system/files/documents/files/14_3w_wash_100616_a4.pdf
+Ethiopia;Tigray;;;;ETH;ETH11;;ICRC;WASH;Water;1-8-2016;ongoing;https://www.humanitarianresponse.info/system/files/documents/files/14_3w_wash_100616_a4.pdf
+Nigeria;;;;Rann;NGA;NGA8;;ICRC;FSL;Distribution of food;1-1-2017;ongoing;https://www.icrc.org/en/document/nigeria-icrc-delivers-food-25000-people-rann
+Kenya;North Eastern;;;;KEN;;;Kenya Red Cross;FSL;Destocking of weak cattle by buying cows, goats and sheep and then using for meat production and distribution ;1-1-2017;ongoing;http://reliefweb.int/report/kenya/destocking-drought-kenya-bites-harder
+Kenya;Coast region;;;;KEN;;;Kenya Red Cross;FSL;Destocking of weak cattle by buying cows, goats and sheep and then using for meat production and distribution ;1-1-2017;ongoing;http://reliefweb.int/report/kenya/destocking-drought-kenya-bites-harder
+Kenya;;Samburu;;;KEN;KEN37;;Kenya Red Cross;FSL;Distribution of 280 metric tons of assorted food;1-1-2017;ongoing;http://reliefweb.int/report/kenya/kenya-about-24-million-people-could-be-food-insecure-april-2017
+Kenya;;Lamu;;;KEN;KEN21;;Kenya Red Cross;FSL;Distribution of 280 metric tons of assorted food;1-1-2017;ongoing;http://reliefweb.int/report/kenya/kenya-about-24-million-people-could-be-food-insecure-april-2017
+Kenya;;Kwale;;;KEN;KEN19;;Kenya Red Cross;FSL;Distribution of 280 metric tons of assorted food;1-1-2017;ongoing;http://reliefweb.int/report/kenya/kenya-about-24-million-people-could-be-food-insecure-april-2017
+Kenya;;Kilifi;;;KEN;KEN14;;Kenya Red Cross;FSL;Distribution of 280 metric tons of assorted food;1-1-2017;ongoing;http://reliefweb.int/report/kenya/kenya-about-24-million-people-could-be-food-insecure-april-2017
+Ethiopia;Afar;;;;ETH;ETH2;;IFRC;FSL;Distribution of food;1-1-2017;ongoing;http://www.climatecentre.org/news/749/deepening-drought-impacts-behind-a-very-direa-food-security-situation-in-ethiopiaa-s-afar-region
+Kenya;;Isiolo;;;KEN;KEN9;;Kenya Red Cross;FSL;;1-2-2017;ongoing;https://trello-attachments.s3.amazonaws.com/58cbb576a7d569a486e13b8c/58d40000f519c4c9f9e51c97/f1ac4ab801b64d2583867fcf55a1bb96/KENYA_3W_operational_presence_as_of_1_Feb_2016.pdf
+Kenya;;Isiolo;;;KEN;KEN9;;Kenya Red Cross;Health;;1-2-2017;ongoing;https://trello-attachments.s3.amazonaws.com/58cbb576a7d569a486e13b8c/58d40000f519c4c9f9e51c97/f1ac4ab801b64d2583867fcf55a1bb96/KENYA_3W_operational_presence_as_of_1_Feb_2016.pdf
+Kenya;;Wajir;;;KEN;KEN46;;Kenya Red Cross;Health;;1-2-2017;ongoing;https://trello-attachments.s3.amazonaws.com/58cbb576a7d569a486e13b8c/58d40000f519c4c9f9e51c97/f1ac4ab801b64d2583867fcf55a1bb96/KENYA_3W_operational_presence_as_of_1_Feb_2016.pdf
+Kenya;;Wajir;;;KEN;KEN46;;Kenya Red Cross;WASH;;1-2-2017;ongoing;https://trello-attachments.s3.amazonaws.com/58cbb576a7d569a486e13b8c/58d40000f519c4c9f9e51c97/f1ac4ab801b64d2583867fcf55a1bb96/KENYA_3W_operational_presence_as_of_1_Feb_2016.pdf
+South Sudan;;Magwi;;;SSD;SSD2;SSD2-7;South Sudan Red Cross;WASH;;25-1-2017;ongoing;https://www.humanitarianresponse.info/en/operations/south-sudan/infographic/south-sudan-3ws-operational-presence-map-county-level-25-jan-2017
+South Sudan;;Torit;;;SSD;SSD2;SSD2-5;South Sudan Red Cross;WASH;;25-1-2017;ongoing;https://www.humanitarianresponse.info/en/operations/south-sudan/infographic/south-sudan-3ws-operational-presence-map-county-level-25-jan-2017
+South Sudan;;Aweil Centre;;;SSD;SSD5;SSD5-21;South Sudan Red Cross;WASH;;25-1-2017;ongoing;https://www.humanitarianresponse.info/en/operations/south-sudan/infographic/south-sudan-3ws-operational-presence-map-county-level-25-jan-2017
+South Sudan;;Aweil North;;;SSD;SSD5;SSD5-21;South Sudan Red Cross;WASH;;25-1-2017;ongoing;https://www.humanitarianresponse.info/en/operations/south-sudan/infographic/south-sudan-3ws-operational-presence-map-county-level-25-jan-2017
+South Sudan;;Aweil West;;;SSD;SSD5;SSD5-21;South Sudan Red Cross;WASH;;25-1-2017;ongoing;https://www.humanitarianresponse.info/en/operations/south-sudan/infographic/south-sudan-3ws-operational-presence-map-county-level-25-jan-2017
+South Sudan;;Gogrial West;;;SSD;SSD8;SSD8-36;South Sudan Red Cross;WASH;;25-1-2017;ongoing;https://www.humanitarianresponse.info/en/operations/south-sudan/infographic/south-sudan-3ws-operational-presence-map-county-level-25-jan-2017

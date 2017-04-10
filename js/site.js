@@ -37,8 +37,11 @@ var config =  {
 	color:'#0080ff'
 };	
 
+
+
 var load_dashboard = function() {
 	  
+	//start();  
 	//Load data
 	var d = {};
 	d3.dsv(';')("data/metadata_prototype.csv", function(metadata){
@@ -50,16 +53,26 @@ var load_dashboard = function() {
 				ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
 				d.Rapportage = ind_data;
 				d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
-					d.Districts = geo_data;
-					console.log(d);
+					var object_name = "geo_level" +  (admlevel - 2);
+					d.Districts = topojson.feature(geo_data,geo_data.objects[object_name]);
+				
+				d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
+					var detail3W = data3W;
+					d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
+					d.Detail_3W = data3W;
+				
+					//console.log(d);
 				  
 				  // generate the actual content of the dashboard
 				  generateCharts(d);
+				  
+				  //stop();
 				  
 				  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
 				  if (typeof L_PREFER_CANVAS !== 'undefined') {
 					$('#IEmodal').modal('show');
 				  }
+				});  
 				});
 			});
 		});
@@ -69,6 +82,7 @@ var load_dashboard = function() {
 
 var reload_dashboard = function(d) {
 	  
+	//start();  
 	//Load data  
 	d3.dsv(';')("data/ind_level" +  (admlevel - 2)  + ".csv", function(ind_data){
 		ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
@@ -79,22 +93,35 @@ var reload_dashboard = function(d) {
 			d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
 		};
 		d3.json("data/geo_level" +  (admlevel - 2)  + ".json", function (geo_data) {
-			//d.Districts = geo_data;
-			var Districts_temp = geo_data;
+			var object_name = "geo_level" +  (admlevel - 2);
+			var Districts_temp = topojson.feature(geo_data,geo_data.objects[object_name]);
 			if (admlevel == 2) {
 				d.Districts.features = Districts_temp.features;
 			} else {
 				d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.properties.pcode_parent) > -1;}); 
 			};
-			console.log(d);
+			//console.log(d);
+		
+		d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
+			var Detail_3W_temp = data3W;
+			if (admlevel == 2) {
+				d.Detail_3W = Detail_3W_temp;
+			} else if (admlevel == 3) {
+				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+			} else if (admlevel == 4) {
+				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+			};
 		  
 		  // generate the actual content of the dashboard
 		  generateCharts(d);
+		  
+		  //stop();
 		  
 		  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
 		  if (typeof L_PREFER_CANVAS !== 'undefined') {
 			$('#IEmodal').modal('show');
 		  }
+		});
 		});
 	});
 
@@ -183,7 +210,6 @@ var generateCharts = function (d){
 	if (metric === '') { 
 		metric = country_default_metric[country_code]; 
 	}
-	console.log(metric);
 	if (admlevel == zoom_min) { 
 		name_selection = country_name[country_code]; 
 		for (var i=0;i<$('.name_selection').length;i++){ $('.name_selection')[i].innerHTML = name_selection; };
@@ -347,6 +373,48 @@ var generateCharts = function (d){
 		tables[i].dimension = dimensions[name];
 	}
 	
+	//Setup separate crossfilter for detailed 3W  data
+	
+	var cf_3W = crossfilter(d.Detail_3W);
+	var dim_pcode0 = cf_3W.dimension(function(d) { return d.pcode0; });
+	var dim_pcode1 = cf_3W.dimension(function(d) { return d.pcode1; });
+	var dim_pcode2 = cf_3W.dimension(function(d) { return d.pcode2; });
+	var dim_sector = cf_3W.dimension(function(d) { return d.sector; });
+	var dim_organisation = cf_3W.dimension(function(d) { return d.organisation; });
+	
+	var group_pcode0 = dim_pcode0.group();
+	var group_pcode1 = dim_pcode1.group();
+	var group_pcode2 = dim_pcode2.group();
+    var group_sector = dim_sector.group();
+    var group_organisation = dim_organisation.group();
+	
+	
+    var sector_chart = dc.rowChart("#sectors");
+	var organisation_chart = dc.rowChart("#organisations");
+	
+	sector_chart.width(320).height(200)
+                .dimension(dim_sector)
+                .group(group_sector)
+                .elasticX(true)
+                .data(function(group) {
+                    return group.top(3);
+                })
+                .colors(['#BF002D'])
+                .colorDomain([0,0])
+                .colorAccessor(function(d, i){return 1;})  
+				;
+				
+	organisation_chart.width(320).height(200)
+                .dimension(dim_organisation)
+                .group(group_organisation)
+                .elasticX(true)
+                .data(function(group) {
+                    return group.top(6);
+                })
+                .colors(['#BF002D'])
+                .colorDomain([0,0])
+                .colorAccessor(function(d, i){return 1;})  
+				;
 	
 	///////////////////////////////
 	// SET UP ALL INDICATOR HTML //
@@ -436,17 +504,17 @@ var generateCharts = function (d){
 		
 		//Dynamically create HTML-elements for all indicator tables
 		var general = document.getElementById('general');
-		var scores = document.getElementById('scores');
-		var vulnerability = document.getElementById('vulnerability');
-		var hazard = document.getElementById('hazard');
-		var coping = document.getElementById('coping');
-		var other = document.getElementById('other');
+		var group3W = document.getElementById('group3W');
+		//var vulnerability = document.getElementById('vulnerability');
+		//var hazard = document.getElementById('hazard');
+		//var coping = document.getElementById('coping');
+		//var other = document.getElementById('other');
 		while (general.firstChild) { general.removeChild(general.firstChild); }
-		while (scores.firstChild) { scores.removeChild(scores.firstChild); }
-		while (vulnerability.firstChild) { vulnerability.removeChild(vulnerability.firstChild); }
-		while (hazard.firstChild) { hazard.removeChild(hazard.firstChild); }
-		while (coping.firstChild) { coping.removeChild(coping.firstChild); }
-		while (other.firstChild) { other.removeChild(other.firstChild); }
+		while (group3W.firstChild) { group3W.removeChild(group3W.firstChild); }
+		//while (vulnerability.firstChild) { vulnerability.removeChild(vulnerability.firstChild); }
+		//while (hazard.firstChild) { hazard.removeChild(hazard.firstChild); }
+		//while (coping.firstChild) { coping.removeChild(coping.firstChild); }
+		//while (other.firstChild) { other.removeChild(other.firstChild); }
 		for (var i=0;i<tables.length;i++) {
 			var record = tables[i];
 			
@@ -494,7 +562,7 @@ var generateCharts = function (d){
 				img.setAttribute('style','height:17px');
 				button.appendChild(img);
 			
-			} else if (record.group === 'other') {
+			} else { //if (record.group === 'other') {
 				
 				if (admlevel == zoom_max && filters.length == 0) {
 					var width = d_prev[record.scorevar_name]*10;
@@ -554,7 +622,7 @@ var generateCharts = function (d){
 				img3.setAttribute('style','height:17px');
 				button.appendChild(img3);
 			}
-			
+			/*
 			else if (record.group) {
 				
 				if (admlevel == zoom_max && filters.length == 0) {
@@ -615,6 +683,7 @@ var generateCharts = function (d){
 				img3.setAttribute('style','height:17px');
 				button.appendChild(img3);
 			}
+			*/
 		}
 	};
 	createHTML(keyvalue);
@@ -652,7 +721,7 @@ var generateCharts = function (d){
 				var div2 = document.getElementById(record.name);
 				div2.innerHTML = keyvalue[record.name] + ' ' + unit;
 			
-			} else if (record.group === 'other') {
+			} else { //if (record.group === 'other') {
 				
 				if (admlevel == zoom_max && filters.length == 0) {
 					var width = d_prev[record.scorevar_name]*10;
@@ -667,7 +736,7 @@ var generateCharts = function (d){
 				div2a1.setAttribute('class','score-bar ' + high_med_low(record.name,record.scorevar_name));
 				div2a1.setAttribute('style','width:'+ width + '%');
 			}
-			
+			/*
 			else if (record.group) {
 				
 				if (admlevel == zoom_max && filters.length == 0) {
@@ -683,6 +752,7 @@ var generateCharts = function (d){
 				div2a1.setAttribute('class','score-bar ' + high_med_low(record.name,record.scorevar_name));
 				div2a1.setAttribute('style','width:'+ width + '%');
 			}
+			*/
 		}
 	};
 
@@ -692,10 +762,15 @@ var generateCharts = function (d){
 	/////////////////////
 	
 	//color-quantile-range
-	var quantile_range = [];
-	for (i=0;i<d.Rapportage.length;i++) {
-		quantile_range[i] = d.Rapportage[i][metric];
-	};	
+	var colorrange = function() {
+		quantile_range = [];
+		for (i=0;i<d.Rapportage.length;i++) {
+			if (d.Rapportage[i][metric] > 0) {
+				quantile_range[i] = d.Rapportage[i][metric];
+			};
+		};	
+	};
+	colorrange();
 	
 	//Set up the map itself with all its properties
 	mapChart
@@ -784,7 +859,7 @@ var generateCharts = function (d){
 			name_selection = lookup[parent_code];
 			for (var i=0;i<$('.name_selection').length;i++){ $('.name_selection')[i].innerHTML = name_selection; };
 			if (admlevel == zoom_max) {
-				metric = 'population';
+				//metric = 'population';
 				for (var i=0;i<d.Rapportage.length;i++) {
 					var record = d.Rapportage[i];
 					if (record.pcode === filters[0]) {d_prev = record; break;}
@@ -835,6 +910,7 @@ var generateCharts = function (d){
 		};	
 		whereGroupSum_scores.dispose();
 		whereGroupSum_scores = whereDimension.group().reduceSum(function(d) { if (!meta_scorevar[metric]) {return d[metric];} else { return d[meta_scorevar[metric]];};});
+		colorrange();
 		mapChart
 			.group(whereGroupSum_scores)				
 			.colors(d3.scale.quantile()
@@ -931,7 +1007,48 @@ var generateCharts = function (d){
 		download.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
 		download.setAttribute('download', 'export.csv');
 	};
-	
+	/*
+	export_csv_3W = function() {
+		var content = d.Detail_3W;
+		
+		var finalVal = '';
+		
+		for (var i = 0; i < content.length; i++) {
+			var value = content[i];
+			var key,innerValue,result;
+			if (i === 0) {
+				for (key in value) {
+					if (value.hasOwnProperty(key)) {
+						innerValue =  key;
+						result = innerValue.replace(/"/g, '""');
+						if (result.search(/("|,|\n)/g) >= 0)
+							result = '"' + result + '"';
+						if (key !== 'pcode') finalVal += ';';
+						finalVal += result;
+					}
+				}
+			finalVal += '\n';	
+			}
+
+			for (key in value) { 
+				if (value.hasOwnProperty(key)) {
+					innerValue =  JSON.stringify(value[key]);
+					result = innerValue.replace(/"/g, '""');
+					if (result.search(/("|,|\n)/g) >= 0)
+						result = '"' + result + '"';
+					if (key !== 'pcode') finalVal += ';';
+					finalVal += result;
+				}
+			}
+
+			finalVal += '\n';
+		}
+		
+		var download = document.getElementById('download-3W');
+		download.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(finalVal));
+		download.setAttribute('download-3W', 'export_3W.csv');
+	};
+	*/
 
 	
 	/////////////////////////

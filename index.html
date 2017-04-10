@@ -30,18 +30,18 @@
 	<link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
 	<!--Application CSS Files-->
-	<!-- <link rel="stylesheet" href="public/build/bower/forms-angular/css/forms-angular-with-bs3.css"> -->
-	<link rel="stylesheet" href="public/build/bower/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="public/build/custom/bootstrap/css/bootstrap-theme.min.css">
-	<!--<link rel="stylesheet" href="public/build/custom/leaflet/css/leaflet.css">-->
-	<link rel="stylesheet" href="public/build/bower/cartodb.js/css/cartodb.css">
-	<!-- <link rel="stylesheet" href="public/build/bower/angular/css/angular-csp.css"> -->
-	<!-- <link rel="stylesheet" href="public/build/bower/mdi/css/materialdesignicons.min.css"> -->
-	<link rel="stylesheet" href="public/build/bower/dcjs/css/dc.css">
-	<!--<link rel="stylesheet" href="public/build/custom/dc-leaflet/css/dc-leaflet-legend.min.css">-->
-	<!-- <link rel="stylesheet" href="public/build/bower/angular-loading-bar/css/loading-bar.min.css"> -->
-	<link rel="stylesheet" href="public/build/custom/font-awesome/css/font-awesome.min.css">
-	<!--<link rel="stylesheet" href="public/build/custom/leaflet-search/css/leaflet-search.min.css">-->
+	<!-- <link rel="stylesheet" href="build/bower/forms-angular/css/forms-angular-with-bs3.css"> -->
+	<link rel="stylesheet" href="build/bower/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="build/custom/bootstrap/css/bootstrap-theme.min.css">
+	<!--<link rel="stylesheet" href="build/custom/leaflet/css/leaflet.css">-->
+	<link rel="stylesheet" href="build/bower/cartodb.js/css/cartodb.css">
+	<!-- <link rel="stylesheet" href="build/bower/angular/css/angular-csp.css"> -->
+	<!-- <link rel="stylesheet" href="build/bower/mdi/css/materialdesignicons.min.css"> -->
+	<link rel="stylesheet" href="build/bower/dcjs/css/dc.css">
+	<!--<link rel="stylesheet" href="build/custom/dc-leaflet/css/dc-leaflet-legend.min.css">-->
+	<!-- <link rel="stylesheet" href="build/bower/angular-loading-bar/css/loading-bar.min.css"> -->
+	<link rel="stylesheet" href="build/custom/font-awesome/css/font-awesome.min.css">
+	<!--<link rel="stylesheet" href="build/custom/leaflet-search/css/leaflet-search.min.css">-->
 	<link rel="stylesheet" href="css/dashboards.css">
 	<link rel="stylesheet" href="css/core.css">
 
@@ -97,6 +97,10 @@
 					<li>
 						<a id="download" onclick="export_csv()">Export (CSV)</a>
 					</li>
+					<!-- <li class="divider"></li>
+					<li>
+						<a id="download-3W" onclick="export_csv_3W()">Export 3W (CSV)</a>
+					</li> -->
 				</ul>
 				<!-- /.dropdown-tasks -->
 			</li>
@@ -107,6 +111,8 @@
 	
 	<div class="content-wrapper">
 	
+		<!-- <div class="loading-container" id="loading-container"></div> -->
+		
 		<!-- start: sidebar -->
 		<div class="navbar-default sidebar" role="navigation">
 
@@ -134,16 +140,15 @@
 								<img src="img/risk_score.png">
 							</span>
 							<span class="panel-header-content">
-								<span class="panel-header-title">Risk Score - <span class="component-score" id="risk_score_main"></span>
-									<span class="score-helptext">/10</span>
+								<span class="panel-header-title">3W activities
 								</span>
-								<span class="panel-header-description">Overall composite risk score</span>
+								<span class="panel-header-description">3W activities by sector</span>
 							</span>
 						</a>
 					</div>
 
 					<div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
-						<div class="card-block" id="scores"></div>
+						<div class="card-block" id="group3W"></div>
 					</div>
 				</div>
 				<div class="card">
@@ -153,19 +158,17 @@
 								<img src="img/vulnerability.png">
 							</span>
 							<span class="panel-header-content">
-								<span class="panel-header-title">Vulnerability Score - <span class="component-score" id="vulnerability_score_main"></span>
-									<span class="score-helptext">/10</span>
-								</span>
-								<span class="panel-header-description">Click for vulnerability components</span>
+								<span class="panel-header-title">3W activities (charts)</span>
+								<span class="panel-header-description">Same info through charts (not linked to map momentarily)</span>
 							</span>
 						</a>
 					</div>
 					<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-						<div class="card-block" id="vulnerability">
-							<!-- Vulnerability components set up as the ones above. -->
-						</div>
+						<div id="sectors"></div>
+						<div id="organisations"></div>
 					</div>
 				</div>
+				<!--
 				<div class="card">
 					<div class="card-header" role="tab" id="headingThree">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
@@ -182,7 +185,6 @@
 					</div>
 					<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
 						<div class="card-block" id="hazard">
-							<!-- Hazard components set up as the ones above. -->
 						</div>
 					</div>
 				</div>
@@ -202,7 +204,6 @@
 					</div>
 					<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
 						<div class="card-block" id="coping">
-							<!-- Coping capacity indicators set up as the ones above. -->
 						</div>
 					</div>
 				</div>
@@ -222,6 +223,7 @@
 						<div class="card-block" id="other"></div>
 					</div>
 				</div>
+				-->
 				<div class="card"></div>
 			</div>
 			<!-- end: accordion with stats -->
@@ -370,42 +372,43 @@
 	</script>
 
 	<!--Application JavaScript Files-->
-	<script type="text/javascript" src="public/build/bower/jquery/js/jquery.min.js"></script>
-	<!--<script type="text/javascript" src="public/build/custom/slick/js/slick.min.js"></script>-->
-	<script type="text/javascript" src="public/build/bower/crossfilter/js/crossfilter.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/lodash/js/lodash.underscore.min.js"></script>
-<!-- 	<script type="text/javascript" src="public/build/bower/angular/js/angular.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-lodash/js/angular-lodash.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-route/js/angular-route.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-resource/js/angular-resource.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-cookies/js/angular-cookies.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-touch/js/angular-touch.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-sanitize/js/angular-sanitize.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-ui-router/js/angular-ui-router.min.js"></script> -->
-	<script type="text/javascript" src="public/build/bower/bootstrap/js/bootstrap.min.js"></script>
-<!-- 	<script type="text/javascript" src="public/build/bower/angular-bootstrap/js/ui-bootstrap-tpls.js"></script>
- -->	<script type="text/javascript" src="public/build/bower/leaflet/js/leaflet.js"></script>
-	<!-- <script type="text/javascript" src="public/build/bower/angular-leaflet-directive/js/angular-leaflet-directive.min.js"></script> -->
-	<!--<script type="text/javascript" src="public/build/custom/leaflet-search/js/leaflet-search.min.js"></script>-->
-	<script type="text/javascript" src="public/build/bower/leaflet-ajax/js/leaflet.ajax.js"></script>
-	<!-- <script type="text/javascript" src="public/build/bower/angular-gettext/js/angular-gettext.js"></script> -->
+	<script type="text/javascript" src="build/bower/jquery/js/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="build/custom/slick/js/slick.min.js"></script>-->
+	<script type="text/javascript" src="build/bower/crossfilter/js/crossfilter.min.js"></script>
+	<script type="text/javascript" src="build/bower/lodash/js/lodash.underscore.min.js"></script>
+<!-- 	<script type="text/javascript" src="build/bower/angular/js/angular.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-lodash/js/angular-lodash.js"></script>
+	<script type="text/javascript" src="build/bower/angular-route/js/angular-route.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-resource/js/angular-resource.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-cookies/js/angular-cookies.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-touch/js/angular-touch.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-sanitize/js/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-ui-router/js/angular-ui-router.min.js"></script> -->
+	<script type="text/javascript" src="build/bower/bootstrap/js/bootstrap.min.js"></script>
+<!-- 	<script type="text/javascript" src="build/bower/angular-bootstrap/js/ui-bootstrap-tpls.js"></script>
+ -->	<script type="text/javascript" src="build/bower/leaflet/js/leaflet.js"></script>
+	<!-- <script type="text/javascript" src="build/bower/angular-leaflet-directive/js/angular-leaflet-directive.min.js"></script> -->
+	<!--<script type="text/javascript" src="build/custom/leaflet-search/js/leaflet-search.min.js"></script>-->
+	<script type="text/javascript" src="build/bower/leaflet-ajax/js/leaflet.ajax.js"></script>
+	<!-- <script type="text/javascript" src="build/bower/angular-gettext/js/angular-gettext.js"></script> -->
 	<!-- <script type="text/javascript" src="dist/translations.js"></script> -->
-	<!-- <script type="text/javascript" src="public/build/bower/Snap.svg/js/snap.svg-min.js"></script> -->
-	<script type="text/javascript" src="public/build/bower/d3/js/d3.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/dcjs/js/dc.min.js"></script>
-	<script type="text/javascript" src="public/build/custom/dc-leaflet/js/dc-leaflet-dev.js"></script>
-	<!--<script type="text/javascript" src="public/build/custom/leaflet-stamen/tile.stamen.js"></script>-->
-	<!--<script type="text/javascript" src="public/build/custom/angular-dc/js/angular-dc.js"></script>-->
-	<!--<script type="text/javascript" src="public/build/custom/forms-angular/js/forms-angular.js"></script>-->
-<!-- 	<script type="text/javascript" src="public/build/bower/angular-messages/js/angular-messages.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/ngInfiniteScroll/js/ng-infinite-scroll.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/angular-elastic/js/elastic.js"></script> -->
-	<script type="text/javascript" src="public/build/bower/underscore/js/underscore.js"></script>
-	<!-- <script type="text/javascript" src="public/build/bower/angular-loading-bar/js/loading-bar.min.js"></script> -->
-	<script type="text/javascript" src="public/build/bower/leaflet-gps/js/leaflet-gps.min.js"></script>
+	<!-- <script type="text/javascript" src="build/bower/Snap.svg/js/snap.svg-min.js"></script> -->
+	<script type="text/javascript" src="build/bower/d3/js/d3.min.js"></script>
+	<script type="text/javascript" src="build/bower/dcjs/js/dc.min.js"></script>
+	<script type="text/javascript" src="build/custom/dc-leaflet/js/dc-leaflet-dev.js"></script>
+	<!--<script type="text/javascript" src="build/custom/leaflet-stamen/tile.stamen.js"></script>-->
+	<!--<script type="text/javascript" src="build/custom/angular-dc/js/angular-dc.js"></script>-->
+	<!--<script type="text/javascript" src="build/custom/forms-angular/js/forms-angular.js"></script>-->
+<!-- 	<script type="text/javascript" src="build/bower/angular-messages/js/angular-messages.min.js"></script>
+	<script type="text/javascript" src="build/bower/ngInfiniteScroll/js/ng-infinite-scroll.min.js"></script>
+	<script type="text/javascript" src="build/bower/angular-elastic/js/elastic.js"></script> -->
+	<script type="text/javascript" src="build/bower/underscore/js/underscore.js"></script>
+	<!-- <script type="text/javascript" src="build/bower/angular-loading-bar/js/loading-bar.min.js"></script> -->
+	<script type="text/javascript" src="build/bower/leaflet-gps/js/leaflet-gps.min.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=true"></script>
-	<script type="text/javascript" src="public/build/bower/cartodb.js/js/cartodb_noleaflet.js"></script>
-	<!-- <script type="text/javascript" src="public/build/bower/topojson/js/topojson.js"></script> -->
+	<script type="text/javascript" src="build/bower/cartodb.js/js/cartodb_noleaflet.js"></script>
+	<script type="text/javascript" src="build/bower/progressbar.js/js/progressbar.js"></script>
+	<script type="text/javascript" src="build/bower/topojson/js/topojson.js"></script>
 	<script type="text/javascript" src="js/site.js"></script>
 
 </body></html>
