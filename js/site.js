@@ -582,7 +582,7 @@ var generateCharts = function (d){
 				img1.setAttribute('src',icon);
 				div0.appendChild(img1);
 				var div1 = document.createElement('div');
-				div1.setAttribute('class','col-md-3 component-label');
+				div1.setAttribute('class','col-md-8 component-label');
 				div1.setAttribute('onclick','map_coloring(\''+record.name+'\')');
 				div1.innerHTML = meta_label[record.name];
 				//$compile(div1)($scope);
@@ -592,6 +592,7 @@ var generateCharts = function (d){
 				div1a.setAttribute('id',record.name);
 				div1a.innerHTML = keyvalue[record.name];
 				div1.appendChild(div1a);
+				/*
 				var div2 = document.createElement('div');
 				div2.setAttribute('class','col-md-5');
 				div.appendChild(div2);
@@ -607,6 +608,7 @@ var generateCharts = function (d){
 				img2.setAttribute('class','scale-icon');
 				img2.setAttribute('src','modules/dashboards/img/icon-scale.svg');
 				div2a.appendChild(img2);
+				*/
 				var div3 = document.createElement('div');
 				div3.setAttribute('class','col-sm-2 col-md-2 no-padding');
 				div.appendChild(div3);
@@ -732,9 +734,9 @@ var generateCharts = function (d){
 				var div1a = document.getElementById(record.name);
 				div1a.setAttribute('class','component-score ' + high_med_low(record.name,record.scorevar_name));
 				div1a.innerHTML = keyvalue[record.name];
-				var div2a1 = document.getElementById('bar-'+record.name);
-				div2a1.setAttribute('class','score-bar ' + high_med_low(record.name,record.scorevar_name));
-				div2a1.setAttribute('style','width:'+ width + '%');
+				// var div2a1 = document.getElementById('bar-'+record.name);
+				// div2a1.setAttribute('class','score-bar ' + high_med_low(record.name,record.scorevar_name));
+				// div2a1.setAttribute('style','width:'+ width + '%');
 			}
 			/*
 			else if (record.group) {
