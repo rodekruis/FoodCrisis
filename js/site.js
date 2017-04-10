@@ -38,7 +38,6 @@ var config =  {
 };	
 
 
-
 var load_dashboard = function() {
 	  
 	//start();  
@@ -505,13 +504,13 @@ var generateCharts = function (d){
 		//Dynamically create HTML-elements for all indicator tables
 		var general = document.getElementById('general');
 		var group3W = document.getElementById('group3W');
-		//var vulnerability = document.getElementById('vulnerability');
+		var group_food = document.getElementById('group_food');
 		//var hazard = document.getElementById('hazard');
 		//var coping = document.getElementById('coping');
 		//var other = document.getElementById('other');
 		while (general.firstChild) { general.removeChild(general.firstChild); }
 		while (group3W.firstChild) { group3W.removeChild(group3W.firstChild); }
-		//while (vulnerability.firstChild) { vulnerability.removeChild(vulnerability.firstChild); }
+		while (group_food.firstChild) { group_food.removeChild(group_food.firstChild); }
 		//while (hazard.firstChild) { hazard.removeChild(hazard.firstChild); }
 		//while (coping.firstChild) { coping.removeChild(coping.firstChild); }
 		//while (other.firstChild) { other.removeChild(other.firstChild); }

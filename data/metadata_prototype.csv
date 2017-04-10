@@ -5,3 +5,4 @@ All;3W_activities;3W activities;#;decimal0;;2017;;# of 3W activities in this ope
 All;3W_FSL;FSL activities;#;decimal0;;2017;;# of 3W FSL (Food distribution) activities in this operation;group3W;sum;;
 All;3W_Health;Health activities;#;decimal0;;2017;;# of 3W Health activities in this operation;group3W;sum;;
 All;3W_WASH;WASH activities;#;decimal0;;2017;;# of 3W WASH activities in this operation;group3W;sum;;
+All;foodsecurity;Food Security (1-4);;decimal2;;2017;;;group_food;weighted_avg;population;
