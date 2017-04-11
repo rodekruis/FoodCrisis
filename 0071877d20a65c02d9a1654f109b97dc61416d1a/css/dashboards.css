@@ -595,3 +595,12 @@ a.handle:hover {
 	color: white;
 	text-decoration: none;
 }
+
+
+.loading-container {
+	height: 300px;
+}
+.loading-container > svg {
+	height: 100%;
+	display: block;
+}
