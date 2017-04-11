@@ -37,10 +37,42 @@ var config =  {
 	color:'#0080ff'
 };	
 
+spinner_start = function() {
+	var opts = {
+	  lines: 13 // The number of lines to draw
+	, length: 28 // The length of each line
+	, width: 14 // The line thickness
+	, radius: 42 // The radius of the inner circle
+	, scale: 1 // Scales overall size of the spinner
+	, corners: 1 // Corner roundness (0..1)
+	, color: '#000' // #rgb or #rrggbb or array of colors
+	, opacity: 0.25 // Opacity of the lines
+	, rotate: 0 // The rotation offset
+	, direction: 1 // 1: clockwise, -1: counterclockwise
+	, speed: 1 // Rounds per second
+	, trail: 60 // Afterglow percentage
+	, fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+	, zIndex: 2e9 // The z-index (defaults to 2000000000)
+	, className: 'spinner' // The CSS class to assign to the spinner
+	, top: '50%' // Top position relative to parent
+	, left: '50%' // Left position relative to parent
+	, shadow: false // Whether to render a shadow
+	, hwaccel: false // Whether to use hardware acceleration
+	, position: 'absolute' // Element positioning
+	}
+	var target = document.getElementById('spinner')
+	spinner = new Spinner(opts).spin(target);
+}
+
+
+spinner_stop = function() {
+	spinner.stop();
+}
+
 
 var load_dashboard = function() {
 	  
-	//start();  
+	spinner_start();  
 	//Load data
 	var d = {};
 	d3.dsv(';')("data/metadata_prototype.csv", function(metadata){
@@ -65,7 +97,7 @@ var load_dashboard = function() {
 				  // generate the actual content of the dashboard
 				  generateCharts(d);
 				  
-				  //stop();
+				  spinner_stop();
 				  
 				  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
 				  if (typeof L_PREFER_CANVAS !== 'undefined') {
@@ -81,7 +113,7 @@ var load_dashboard = function() {
 
 var reload_dashboard = function(d) {
 	  
-	//start();  
+	spinner_start();  
 	//Load data  
 	d3.dsv(';')("data/ind_level" +  (admlevel - 2)  + ".csv", function(ind_data){
 		ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
@@ -114,7 +146,7 @@ var reload_dashboard = function(d) {
 		  // generate the actual content of the dashboard
 		  generateCharts(d);
 		  
-		  //stop();
+		  spinner_stop();
 		  
 		  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
 		  if (typeof L_PREFER_CANVAS !== 'undefined') {
@@ -505,15 +537,9 @@ var generateCharts = function (d){
 		var general = document.getElementById('general');
 		var group3W = document.getElementById('group3W');
 		var group_food = document.getElementById('group_food');
-		//var hazard = document.getElementById('hazard');
-		//var coping = document.getElementById('coping');
-		//var other = document.getElementById('other');
 		while (general.firstChild) { general.removeChild(general.firstChild); }
 		while (group3W.firstChild) { group3W.removeChild(group3W.firstChild); }
 		while (group_food.firstChild) { group_food.removeChild(group_food.firstChild); }
-		//while (hazard.firstChild) { hazard.removeChild(hazard.firstChild); }
-		//while (coping.firstChild) { coping.removeChild(coping.firstChild); }
-		//while (other.firstChild) { other.removeChild(other.firstChild); }
 		for (var i=0;i<tables.length;i++) {
 			var record = tables[i];
 			

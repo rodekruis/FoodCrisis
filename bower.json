@@ -19,7 +19,7 @@
 	"leaflet-gps": "1.0.*",
 	"slick": "*",	
 	"topojson": "1.6.26",
-	"progressbar.js": "*"
+	"spin.js": "*"
   },
   "resolutions": {
 	"d3": "3.5.17"
