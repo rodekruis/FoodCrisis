@@ -1,8 +1,8 @@
 country_code;variable;label;unit;format;icon_src;year;source_link;description;group;agg_method;weight_var;scorevar_name
 All;population;Population;;decimal0;population.png;2015;http://www.worldpop.org.uk/data/summary/?contselect=Africa&countselect=Whole+Continent&typeselect=Population+2000-2020;;general;sum;;
 All;pop_density;Population density;per km<sup>2</sup>;decimal0;density.png;2015;http://www.worldpop.org.uk/data/summary/?contselect=Africa&countselect=Whole+Continent&typeselect=Population+2000-2020;;general;weighted_avg;land_area;
-All;3W_activities;3W activities;#;decimal0;;2017;;# of 3W activities in this operation;group3W;sum;;
-All;3W_FSL;FSL activities;#;decimal0;;2017;;# of 3W FSL (Food distribution) activities in this operation;group3W;sum;;
-All;3W_Health;Health activities;#;decimal0;;2017;;# of 3W Health activities in this operation;group3W;sum;;
-All;3W_WASH;WASH activities;#;decimal0;;2017;;# of 3W WASH activities in this operation;group3W;sum;;
-All;foodsecurity;Food Security (1-4);;decimal2;;2017;;;group_food;weighted_avg;population;
+All;3W_activities;3W activities;#;decimal0;3w.png;2017;;# of 3W activities in this operation;group3W;sum;;
+All;3W_FSL;FSL activities;#;decimal0;food_security.png;2017;;# of 3W FSL (Food distribution) activities in this operation;group3W;sum;;
+All;3W_Health;Health activities;#;decimal0;health.png;2017;;# of 3W Health activities in this operation;group3W;sum;;
+All;3W_WASH;WASH activities;#;decimal0;wash.png;2017;;# of 3W WASH activities in this operation;group3W;sum;;
+All;foodsecurity;Food Security (1-4);;decimal2;food_security.png;2017;;The source contains geographic spread of food security phases 1 to 4. This was translated to admin-2 areas, and subsequently aggregated to higher admin-levels using population as weights.;group_food;weighted_avg;population;
