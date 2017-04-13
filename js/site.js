@@ -1,9 +1,10 @@
 
 
 //Define variables
+var spreadsheetKey = '1jMp_uQJrf354LCYJyWRola9D1ZR6_fj9Dfa3MmJFFEI';
 var country_code = 'All';
 var admlevel = 2;				// NOTE: For now, I keep the admlevels in the code as 2-4 instead of 0-2 which is the actual data. The principal works the same, and it keeps me from having to adjust everything now..
-var metric = 'pop_density';
+var metric = 'popdensity';
 var metric_label = '';
 var metric_year = '';
 var metric_source = '';
@@ -37,17 +38,34 @@ var config =  {
 	color:'#0080ff'
 };	
 
+//Function to start loading spinner
 spinner_start = function() {
 	var target = document.getElementById('spinner')
 	spinner = new Spinner({length: 28, width:14}).spin(target);
 }
-
-
+//Function to stop loading spinner
 spinner_stop = function() {
 	spinner.stop();
 }
 
-
+var spreadsheetToJson = function(result) {
+	var data = [];
+	for (i=0;i<result.feed.entry.length;i++) {
+		record = result.feed.entry[i];
+		var json_var = {};
+		json_var.pcode = record.title.$t;
+		var parts = record.content.$t.split(', ');
+		for (j=0;j<parts.length;j++) {
+			var parts2 = parts[j].split(': ');
+			var name = parts2[0];
+			json_var[name] = isNaN(Number(parts2[1])) ? parts2[1] : Number(parts2[1]);
+		};
+		data[i] = json_var;
+	}
+	return data;
+}
+		
+				
 var load_dashboard = function() {
 	  
 	spinner_start();  
@@ -58,9 +76,13 @@ var load_dashboard = function() {
 		d.Metadata = $.grep(meta, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
 		d3.dsv(';')("data/country_metadata.csv", function(metadata_country){
 			d.Country_meta = metadata_country;
-			d3.dsv(';')("data/ind_level" + (admlevel - 2) + ".csv", function(ind_data){
-				ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
-				d.Rapportage = ind_data;
+			
+			var url_json = 	'https://spreadsheets.google.com/feeds/list/'+spreadsheetKey+'/' + (admlevel-1) + '/public/values?alt=json';
+			d3.json(url_json, function (error, result) {
+				d.Rapportage = spreadsheetToJson(result);
+			//d3.dsv(';')("data/ind_level" + (admlevel - 2) + ".csv", function(ind_data){
+				//ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
+				//d.Rapportage = ind_data;
 				d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
 					var object_name = "geo_level" +  (admlevel - 2);
 					d.Districts = topojson.feature(geo_data,geo_data.objects[object_name]);
@@ -69,21 +91,21 @@ var load_dashboard = function() {
 					var detail3W = data3W;
 					d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
 					d.Detail_3W = data3W;
-				
+
 					//console.log(d);
-				  
-				  // generate the actual content of the dashboard
-				  generateCharts(d);
-				  
-				  spinner_stop();
-				  
-				  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
-				  if (typeof L_PREFER_CANVAS !== 'undefined') {
-					$('#IEmodal').modal('show');
-				  }
-				});  
+					// generate the actual content of the dashboard
+					generateCharts(d);
+					  
+					spinner_stop();
 				});
+				
+				//Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
+				if (typeof L_PREFER_CANVAS !== 'undefined') {
+					$('#IEmodal').modal('show');
+				}
+				});  
 			});
+			//});
 		});
 	});	
 
@@ -93,13 +115,16 @@ var reload_dashboard = function(d) {
 	  
 	spinner_start();  
 	//Load data  
-	d3.dsv(';')("data/ind_level" +  (admlevel - 2)  + ".csv", function(ind_data){
-		ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
-		var Rapportage_temp = ind_data;
+	var url_json = 	'https://spreadsheets.google.com/feeds/list/'+spreadsheetKey+'/' + (admlevel-1) + '/public/values?alt=json';
+	d3.json(url_json, function (error, result) {
+		var Rapportage_temp = spreadsheetToJson(result);
+	//d3.dsv(';')("data/ind_level" +  (admlevel - 2)  + ".csv", function(ind_data){
+		//ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
+		//var Rapportage_temp = ind_data;
 		if (admlevel == 2) {
 			d.Rapportage = Rapportage_temp;
 		} else {
-			d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+			d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcodeparent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
 		};
 		d3.json("data/geo_level" +  (admlevel - 2)  + ".json", function (geo_data) {
 			var object_name = "geo_level" +  (admlevel - 2);
@@ -109,28 +134,27 @@ var reload_dashboard = function(d) {
 			} else {
 				d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.properties.pcode_parent) > -1;}); 
 			};
-			//console.log(d);
 		
-		d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
-			var Detail_3W_temp = data3W;
-			if (admlevel == 2) {
-				d.Detail_3W = Detail_3W_temp;
-			} else if (admlevel == 3) {
-				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
-			} else if (admlevel == 4) {
-				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
-			};
-		  
-		  // generate the actual content of the dashboard
-		  generateCharts(d);
-		  
-		  spinner_stop();
-		  
-		  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
-		  if (typeof L_PREFER_CANVAS !== 'undefined') {
-			$('#IEmodal').modal('show');
-		  }
-		});
+			d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
+				var Detail_3W_temp = data3W;
+				if (admlevel == 2) {
+					d.Detail_3W = Detail_3W_temp;
+				} else if (admlevel == 3) {
+					d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+				} else if (admlevel == 4) {
+					d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+				};
+			  
+			  // generate the actual content of the dashboard
+			  generateCharts(d);
+			  
+			  spinner_stop();
+			  
+			  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
+			  if (typeof L_PREFER_CANVAS !== 'undefined') {
+				$('#IEmodal').modal('show');
+			  }
+			});
 		});
 	});
 
@@ -384,44 +408,36 @@ var generateCharts = function (d){
 	//Setup separate crossfilter for detailed 3W  data
 	
 	var cf_3W = crossfilter(d.Detail_3W);
-	var dim_pcode0 = cf_3W.dimension(function(d) { return d.pcode0; });
-	var dim_pcode1 = cf_3W.dimension(function(d) { return d.pcode1; });
-	var dim_pcode2 = cf_3W.dimension(function(d) { return d.pcode2; });
+	var admlevel_code = 'pcode' + (admlevel - 2);
+	var dim_pcode = cf_3W.dimension(function(d) { return d[admlevel_code]; });
 	var dim_sector = cf_3W.dimension(function(d) { return d.sector; });
 	var dim_organisation = cf_3W.dimension(function(d) { return d.organisation; });
 	
-	var group_pcode0 = dim_pcode0.group();
-	var group_pcode1 = dim_pcode1.group();
-	var group_pcode2 = dim_pcode2.group();
+	var group_pcode = dim_pcode.group();
     var group_sector = dim_sector.group();
     var group_organisation = dim_organisation.group();
 	
-	
-    var sector_chart = dc.rowChart("#sectors");
+	var sector_chart = dc.rowChart("#sectors");
 	var organisation_chart = dc.rowChart("#organisations");
 	
-	sector_chart.width(320).height(200)
+	sector_chart.width(320).height(120)
                 .dimension(dim_sector)
                 .group(group_sector)
                 .elasticX(true)
-                .data(function(group) {
-                    return group.top(3);
-                })
                 .colors(['#BF002D'])
                 .colorDomain([0,0])
                 .colorAccessor(function(d, i){return 1;})  
+				.ordering(function(d) {return -d.value;})
 				;
 				
 	organisation_chart.width(320).height(200)
                 .dimension(dim_organisation)
                 .group(group_organisation)
                 .elasticX(true)
-                .data(function(group) {
-                    return group.top(6);
-                })
                 .colors(['#BF002D'])
                 .colorDomain([0,0])
                 .colorAccessor(function(d, i){return 1;})  
+				.ordering(function(d) {return -d.value;})
 				;
 	
 	///////////////////////////////
@@ -847,17 +863,6 @@ var generateCharts = function (d){
 			
 		})
 	;
-	/*
-	console.log(mapChart.colorDomain());
-	var length = mapChart.colorDomain().length;
-	var step = Math.floor(length/5);
-	var steps = [];
-	for (var i=0;i<5;i++) {
-		console.log(step*(i));
-		steps[i] = mapChart.colorDomain()[step*(i)];
-	}
-	console.log(steps);
-	*/
 		
 	///////////////////////////
 	// MAP RELATED FUNCTIONS //
@@ -926,15 +931,27 @@ var generateCharts = function (d){
 		whereGroupSum_scores.dispose();
 		whereGroupSum_scores = whereDimension.group().reduceSum(function(d) { if (!meta_scorevar[metric]) {return d[metric];} else { return d[meta_scorevar[metric]];};});
 		colorrange();
-		mapChart
-			.group(whereGroupSum_scores)				
-			.colors(d3.scale.quantile()
-					.domain(quantile_range)
-					.range(['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026']))
-			.colorCalculator(function(d){
-				return d ? mapChart.colors()(d) : '#cccccc';
-			})
-			;
+		if (metric == 'activities') {
+			mapChart
+				.dimension(dim_pcode)
+				.group(group_pcode)				
+				.colors(d3.scale.quantile()
+						.domain(quantile_range)
+						.range(['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026']))
+				.colorCalculator(function(d){
+					return d ? mapChart.colors()(d) : '#cccccc';
+				});
+		} else {
+			mapChart
+				.group(whereGroupSum_scores)				
+				.colors(d3.scale.quantile()
+						.domain(quantile_range)
+						.range(['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026']))
+				.colorCalculator(function(d){
+					return d ? mapChart.colors()(d) : '#cccccc';
+				});
+		}
+
 		dc.filterAll();
 		dc.redrawAll();
 		document.getElementById('mapPopup').style.visibility = 'hidden';
