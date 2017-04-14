@@ -420,7 +420,7 @@ var generateCharts = function (d){
 	var sector_chart = dc.rowChart("#sectors");
 	var organisation_chart = dc.rowChart("#organisations");
 	
-	sector_chart.width(320).height(120)
+	sector_chart.width(320).height(group_sector.top(Infinity).length * 40)
                 .dimension(dim_sector)
                 .group(group_sector)
                 .elasticX(true)
@@ -430,7 +430,7 @@ var generateCharts = function (d){
 				.ordering(function(d) {return -d.value;})
 				;
 				
-	organisation_chart.width(320).height(200)
+	organisation_chart.width(320).height(group_organisation.top(Infinity).length * 40)
                 .dimension(dim_organisation)
                 .group(group_organisation)
                 .elasticX(true)

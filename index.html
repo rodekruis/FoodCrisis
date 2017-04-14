@@ -16,42 +16,28 @@
 	<link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
 	<!--Application CSS Files-->
-	<link rel="stylesheet" href="public/build/bower/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="public/build/custom/bootstrap/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="public/build/bower/cartodb.js/css/cartodb.css">
-	<link rel="stylesheet" href="public/build/bower/dcjs/css/dc.css">
-	<link rel="stylesheet" href="public/build/custom/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="public/lib/leaflet/dist/leaflet.css">
-	<link rel="stylesheet" href="public/lib/dc-addons/dist/leaflet-map/dc-leaflet-legend.min.css">
+	<link rel="stylesheet" href="bower_components/build/bower/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/build/custom/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="bower_components/build/bower/cartodb.js/css/cartodb.css">
+	<link rel="stylesheet" href="bower_components/build/bower/dcjs/css/dc.css">
+	<link rel="stylesheet" href="bower_components/build/custom/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="bower_components/lib/leaflet/dist/leaflet.css">
+	<link rel="stylesheet" href="bower_components/lib/dc-addons/dist/leaflet-map/dc-leaflet-legend.css">
 	<link rel="stylesheet" href="css/dashboards.css">
 	<link rel="stylesheet" href="css/core.css">
 
 
 <body class="">
-	<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 
-		  <div class="navbar-header">
-			  <a class="navbar-brand" href="/#!/">
-				<img src="https://profiles.510.global/modules/dashboards/img/logo.svg" class="logo">
-				Community Profiles <span class="title-hightlight">Dashboard</span></a>
-		  </div>
-
-	  </nav>
-		  <!-- end: navbar-header -->
-	
-</div>
-</header>
 	<section class="content">
-		<section class="container-fluid">
+	<section class="container-fluid">
 			
-	<!-- uiView:  --><section data-ui-view="" class="section-expand ng-scope"><section class="section-expand ng-scope" data-ng-controller="DistrictDashboardsController" data-ng-init="initiate()">
-	
+
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/#!/">
-				<img src="https://profiles.510.global/modules/dashboards/img/logo.svg" class="logo">
+				<img src="img/logo.svg" class="logo">
 				SIMS - Drought Africa <span class="title-hightlight">Dashboard</span>
 			</a>
 		</div>
@@ -60,7 +46,7 @@
 		<ul class="nav navbar-top-links navbar-right">
 			<li class="dropdown">
 				<a class="dropdown-toggle export-button" data-toggle="dropdown" href="#">
-					<img class="export-icon" src="https://profiles.510.global/modules/dashboards/img/icon-download-options.svg" alt="download options">
+					<img class="export-icon" src="img/icon-download-options.svg" alt="download options">
 						  Export Options
 					<i class="fa fa-angle-down export-btn-arrow"></i>
 				</a>
@@ -309,22 +295,23 @@
 	</script>
 
 	<!--Application JavaScript Files-->
-	<script type="text/javascript" src="public/build/bower/jquery/js/jquery.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/crossfilter/js/crossfilter.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/lodash/js/lodash.underscore.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/leaflet/js/leaflet.js"></script>
-	<script type="text/javascript" src="public/build/bower/leaflet-ajax/js/leaflet.ajax.js"></script>
-	<script type="text/javascript" src="public/build/bower/d3/js/d3.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/dcjs/js/dc.min.js"></script>
-	<script type="text/javascript" src="public/build/custom/dc-leaflet/js/dc-leaflet-dev.js"></script>
-	<script type="text/javascript" src="public/build/bower/underscore/js/underscore.js"></script>
-	<script type="text/javascript" src="public/build/bower/leaflet-gps/js/leaflet-gps.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/jquery/js/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/crossfilter/js/crossfilter.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/lodash/js/lodash.underscore.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/leaflet/js/leaflet.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/leaflet-ajax/js/leaflet.ajax.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/d3/js/d3.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/dcjs/js/dc.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/custom/dc-leaflet/js/dc-leaflet-dev.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/underscore/js/underscore.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/leaflet-gps/js/leaflet-gps.min.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=true"></script>
-	<script type="text/javascript" src="public/lib/spin.js/spin.min.js"></script>
-	<script type="text/javascript" src="public/lib/topojson/topojson.min.js"></script>
-	<script type="text/javascript" src="public/build/bower/dc-addons/js/dc-addons.js"></script>
-	<script type="text/javascript" src="public/build/bower/d3-tip/js/index.js"></script>
+	<script type="text/javascript" src="bower_components/lib/spin.js/spin.min.js"></script>
+	<script type="text/javascript" src="bower_components/lib/topojson/topojson.min.js"></script>
+	<script type="text/javascript" src="bower_components/build/custom/dc-addons/js/dc-addons.js"></script>
+	<script type="text/javascript" src="bower_components/build/bower/d3-tip/js/index.js"></script>
 	<script type="text/javascript" src="js/site.js"></script>
 
-</body></html>
+</body>
+</html>

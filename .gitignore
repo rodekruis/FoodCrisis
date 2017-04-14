@@ -1,4 +1,5 @@
-node_modules/
-bower_components/
 data_preparations/
 data/old/
+data/ind_level0.csv
+data/ind_level1.csv
+data/ind_level2.csv

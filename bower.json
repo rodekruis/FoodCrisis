@@ -19,13 +19,14 @@
 	"leaflet-gps": "1.0.*",
 	"slick": "*",	
 	"topojson": "1.6.26",
-	"spin.js": "*"
+	"spin.js": "*",
+	"dc-addons": "*"
   },
   "resolutions": {
 	"d3": "3.5.17"
   },
   "install": {
-    "base": "public/build/bower",
+    "base": "bower_components/build/bower",
     "path": {
       "js": "{name}/js",
       "css": "{name}/css",
@@ -40,59 +41,59 @@
     },
     "sources": {
       "bootstrap": [
-        "public/lib/bootstrap/dist/js/bootstrap.min.js",
-        "public/lib/bootstrap/dist/css/bootstrap.min.css",
-		"public/lib/bootstrap/dist/css/bootstrap.min.css.map",
-        "public/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot",
-        "public/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg",
-        "public/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf",
-        "public/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff",
-		"public/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2"
+        "bower_components/lib/bootstrap/dist/js/bootstrap.min.js",
+        "bower_components/lib/bootstrap/dist/css/bootstrap.min.css",
+		"bower_components/lib/bootstrap/dist/css/bootstrap.min.css.map",
+        "bower_components/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot",
+        "bower_components/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg",
+        "bower_components/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf",
+        "bower_components/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff",
+		"bower_components/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2"
       ],
       "jquery": [
-        "public/lib/jquery/dist/jquery.min.js"
+        "bower_components/lib/jquery/dist/jquery.min.js"
       ],
       "cartodb.js": [
-        "public/lib/cartodb.js/cartodb_noleaflet.js",
-        "public/lib/cartodb.js/themes/css/cartodb.css"
+        "bower_components/lib/cartodb.js/cartodb_noleaflet.js",
+        "bower_components/lib/cartodb.js/themes/css/cartodb.css"
       ],
       "crossfilter": [
-        "public/lib/crossfilter/crossfilter.min.js"
+        "bower_components/lib/crossfilter/crossfilter.min.js"
       ],
       "lodash": [
-        "public/lib/lodash/dist/lodash.underscore.min.js"
+        "bower_components/lib/lodash/dist/lodash.underscore.min.js"
       ],
 	  "leaflet": [
-        "public/lib/leaflet/dist/leaflet.js",
-        "public/lib/leaflet/dist/leaflet-src.js"
+        "bower_components/lib/leaflet/dist/leaflet.js",
+        "bower_components/lib/leaflet/dist/leaflet-src.js"
       ],
 	  "leaflet-search": [
-        "public/lib/leaflet-search/dist/leaflet-search.min.js",
-        "public/lib/leaflet-search/dist/leaflet-search.min.css",
-		"public/lib/leaflet-search/dist/leaflet-search.src.js",
-        "public/lib/leaflet-search/dist/leaflet-search.src.css"
+        "bower_components/lib/leaflet-search/dist/leaflet-search.min.js",
+        "bower_components/lib/leaflet-search/dist/leaflet-search.min.css",
+		"bower_components/lib/leaflet-search/dist/leaflet-search.src.js",
+        "bower_components/lib/leaflet-search/dist/leaflet-search.src.css"
       ],
       "mdi": [
-        "public/lib/mdi/css/materialdesignicons.min.css",
-        "public/lib/mdi/css/materialdesignicons.min.css.map",
-        "public/lib/mdi/fonts/materialdesignicons-webfont.eot",
-        "public/lib/mdi/fonts/materialdesignicons-webfont.svg",
-        "public/lib/mdi/fonts/materialdesignicons-webfont.ttf",
-        "public/lib/mdi/fonts/materialdesignicons-webfont.woff",
-        "public/lib/mdi/fonts/materialdesignicons-webfont.woff2"
+        "bower_components/lib/mdi/css/materialdesignicons.min.css",
+        "bower_components/lib/mdi/css/materialdesignicons.min.css.map",
+        "bower_components/lib/mdi/fonts/materialdesignicons-webfont.eot",
+        "bower_components/lib/mdi/fonts/materialdesignicons-webfont.svg",
+        "bower_components/lib/mdi/fonts/materialdesignicons-webfont.ttf",
+        "bower_components/lib/mdi/fonts/materialdesignicons-webfont.woff",
+        "bower_components/lib/mdi/fonts/materialdesignicons-webfont.woff2"
       ],
 	  "ngInfiniteScroll": [
-        "public/lib/ngInfiniteScroll/build/ng-infinite-scroll.js",
-        "public/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js"
+        "bower_components/lib/ngInfiniteScroll/build/ng-infinite-scroll.js",
+        "bower_components/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js"
       ],
 	  "d3": [
-        "public/lib/d3/d3.min.js",
-        "public/lib/d3/d3.js"
+        "bower_components/lib/d3/d3.min.js",
+        "bower_components/lib/d3/d3.js"
       ],
 	  "dcjs": [
-        "public/lib/dcjs/dc.min.js",
-        "public/lib/dcjs/dc.js",
-        "public/lib/dcjs/dc.css"
+        "bower_components/lib/dcjs/dc.min.js",
+        "bower_components/lib/dcjs/dc.js",
+        "bower_components/lib/dcjs/dc.css"
       ]
     }
   }
