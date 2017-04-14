@@ -1,6 +1,9 @@
 
 
-//Define variables
+//////////////////////
+// DEFINE VARIABLES //
+//////////////////////
+
 var spreadsheetKey = '1jMp_uQJrf354LCYJyWRola9D1ZR6_fj9Dfa3MmJFFEI';
 var country_code = 'All';
 var admlevel = 2;				// NOTE: For now, I keep the admlevels in the code as 2-4 instead of 0-2 which is the actual data. The principal works the same, and it keeps me from having to adjust everything now..
@@ -38,6 +41,10 @@ var config =  {
 	color:'#0080ff'
 };	
 
+///////////////////////////////////
+// DEFINE SOME INITIAL FUNCTIONS //
+///////////////////////////////////
+
 //Function to start loading spinner
 spinner_start = function() {
 	var target = document.getElementById('spinner')
@@ -47,7 +54,7 @@ spinner_start = function() {
 spinner_stop = function() {
 	spinner.stop();
 }
-
+//Function to translate Google Spreadsheet data to usable JSON
 var spreadsheetToJson = function(result) {
 	var data = [];
 	for (i=0;i<result.feed.entry.length;i++) {
@@ -65,6 +72,9 @@ var spreadsheetToJson = function(result) {
 	return data;
 }
 		
+//////////////////////////////////////
+// FUNCTION TO INITIALIZE DASHBOARD //
+//////////////////////////////////////
 				
 var load_dashboard = function() {
 	  
@@ -76,33 +86,29 @@ var load_dashboard = function() {
 		d.Metadata = $.grep(meta, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
 		d3.dsv(';')("data/country_metadata.csv", function(metadata_country){
 			d.Country_meta = metadata_country;
-			
 			var url_json = 	'https://spreadsheets.google.com/feeds/list/'+spreadsheetKey+'/' + (admlevel-1) + '/public/values?alt=json';
 			d3.json(url_json, function (error, result) {
 				d.Rapportage = spreadsheetToJson(result);
-			//d3.dsv(';')("data/ind_level" + (admlevel - 2) + ".csv", function(ind_data){
-				//ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
-				//d.Rapportage = ind_data;
 				d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
 					var object_name = "geo_level" +  (admlevel - 2);
 					d.Districts = topojson.feature(geo_data,geo_data.objects[object_name]);
 				
-				d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
-					var detail3W = data3W;
-					d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
-					d.Detail_3W = data3W;
+					d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
+						var detail3W = data3W;
+						d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
+						d.Detail_3W = data3W;
 
-					//console.log(d);
-					// generate the actual content of the dashboard
-					generateCharts(d);
-					  
-					spinner_stop();
-				});
-				
-				//Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
-				if (typeof L_PREFER_CANVAS !== 'undefined') {
-					$('#IEmodal').modal('show');
-				}
+						//console.log(d);
+						// generate the actual content of the dashboard
+						generateCharts(d);
+						  
+						spinner_stop();
+					});
+					
+					//Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
+					if (typeof L_PREFER_CANVAS !== 'undefined') {
+						$('#IEmodal').modal('show');
+					}
 				});  
 			});
 			//});
@@ -111,6 +117,10 @@ var load_dashboard = function() {
 
 };
 
+///////////////////////////////////////////////////////////////
+// FUNCTION TO RE-INITIALIZE DASHBOARD (after zooming in/out)//
+///////////////////////////////////////////////////////////////
+
 var reload_dashboard = function(d) {
 	  
 	spinner_start();  
@@ -118,9 +128,6 @@ var reload_dashboard = function(d) {
 	var url_json = 	'https://spreadsheets.google.com/feeds/list/'+spreadsheetKey+'/' + (admlevel-1) + '/public/values?alt=json';
 	d3.json(url_json, function (error, result) {
 		var Rapportage_temp = spreadsheetToJson(result);
-	//d3.dsv(';')("data/ind_level" +  (admlevel - 2)  + ".csv", function(ind_data){
-		//ind_data.forEach(function(d){ d['population'] = +d['population'];d['land_area'] = +d['land_area'];d['pop_density'] = +d['pop_density']; });  
-		//var Rapportage_temp = ind_data;
 		if (admlevel == 2) {
 			d.Rapportage = Rapportage_temp;
 		} else {
@@ -815,7 +822,7 @@ var generateCharts = function (d){
 		})
 		.legend(dc.leafletLegend().position('bottomright'))
 		.renderPopup(true)
-		.turnOnControls(true)
+//		.turnOnControls(true)
 		//Set up what happens when clicking on the map (popup appearing mainly)
 		.on('filtered',function(chart,filters){
 			window.filters = chart.filters();
@@ -840,10 +847,10 @@ var generateCharts = function (d){
 				//})
 				//In Firefox event is not a global variable >> Not figured out how to fix this, so gave the popup a fixed position in FF only
 				if (typeof event !== 'undefined') {
-					popup.style.left = event.pageX + 'px';	
+					popup.style.left = (event.pageX - 100) + 'px';	
 					popup.style.top = event.pageY + 'px';
 				} else {
-					popup.style.left = '400px';	
+					$(window).width() < 480 ? popup.style.left = '100px' : popup.style.left = '400px';
 					popup.style.top = '100px';
 				}
 				popup.style.visibility = 'visible';
@@ -863,6 +870,8 @@ var generateCharts = function (d){
 			
 		})
 	;
+	
+	
 		
 	///////////////////////////
 	// MAP RELATED FUNCTIONS //
@@ -1089,6 +1098,7 @@ var generateCharts = function (d){
 	
 	//Render all dc-charts and -tables
 	dc.renderAll(); 
+	$('.leaflet-left.leaflet-top').addClass('leaflet-right').removeClass('leaflet-left');
 	
 	map = mapChart.map();
 	function zoomToGeom(geom){
@@ -1101,4 +1111,58 @@ var generateCharts = function (d){
 	
 };
 
+///////////////////////////////////////
+// FUNCTIONS FOR MOBILE FRIENDLINESS //
+///////////////////////////////////////
+
+//Sidebar collapsing/expanding	
+(function () {
+    $(function () {
+        var SideBAR;
+        SideBAR = (function () {
+            function SideBAR() {}
+
+            SideBAR.prototype.expandMyMenu = function () {
+                return $("#sidebar").removeClass("sidebar-menu-collapsed").addClass("sidebar-menu-expanded");
+            };
+
+            SideBAR.prototype.collapseMyMenu = function () {
+                return $("#sidebar").removeClass("sidebar-menu-expanded").addClass("sidebar-menu-collapsed");
+            };
+
+            SideBAR.prototype.ignite = function () {
+                return (function (instance) {
+                    return $("#justify-icon").click(function (e) {
+                        if ($($(this)[0].parentNode).hasClass("sidebar-menu-collapsed")) {
+                            instance.expandMyMenu();
+							$('#sidebar-content').css('display','block');
+							$('.zoom-level-nav').css('left','380px');
+                        } else if ($($(this)[0].parentNode).hasClass("sidebar-menu-expanded")) {
+                            instance.collapseMyMenu();
+							$('#sidebar-content').css('display','none');
+							$('.zoom-level-nav').css('left','80px');
+                        }
+                        return false;
+                    });
+                })(this);
+            };
+
+            return SideBAR;
+
+        })();
+        return (new SideBAR).ignite();
+    });
+
+}).call(this);
+
+//Set collapsing/expanding depending on type of screen
+function checkWindowSize() {  
+    if ( $(window).width() < 480) { 
+        $('#sidebar').addClass('sidebar-menu-collapsed');  
+        $('#sidebar').removeClass('sidebar-menu-expanded');  
+		$('#sidebar-content').css('display','none');
+		$('.zoom-level-nav').css('left','80px');
+    }
+}    
+checkWindowSize()
 

@@ -55,11 +55,11 @@ body {
 }
 .sidebar {
   bottom: 0;
-  height: 95%;
+  height: 100%;
   overflow: auto;
   padding: 20px;
-  position: fixed;
-  top: 51px;
+  position: absolute;
+  top: 0;
   width: 380px;
   z-index: 2;
   background-color: #ffffff;
@@ -76,7 +76,7 @@ body {
 }
 .zoom-level-nav {
   position: absolute;
-  left: 420px;
+  left: 380px;
   margin-top: 10px;
   z-index: 3;
 }
@@ -494,7 +494,7 @@ a.handle:hover {
 }
 
 /* Extra Small Devices, Phones */
-@media only screen and (max-width : 480px) {
+/* @media only screen and (max-width : 480px) {
   .map-wrapper,
   .sidebar,
   .navbar-right {
@@ -522,7 +522,7 @@ a.handle:hover {
     margin-top: 30px;
     padding: 10px;
   }
-}
+} */
 
 
 /* Own CSS Jannis */
@@ -547,7 +547,7 @@ a.handle:hover {
 }
 
 .leaflet-control-zoom {
-	left: 380px;
+	right: 0px;
 	top: 90%;
 }
 
@@ -565,6 +565,7 @@ a.handle:hover {
 }
 
 .hdx-3w-info {
+	right: 35px;
 	padding:5px;
     background-color:white;
     background: rgba(255,255,255,0.8);
@@ -604,3 +605,17 @@ a.handle:hover {
 	height: 100%;
 	display: block;
 }
+
+
+/* Collapsible sidebar */
+
+body {
+    background: none repeat scroll 0 0 white;
+}
+.sidebar-menu-collapsed {
+    width: 75px;
+}
+.sidebar-menu-expanded {
+    width: 380px;
+}
+
