@@ -80,7 +80,7 @@ var load_dashboard = function() {
 	  
 	spinner_start();  
 	//Load data
-	var d = {};
+	d = {};
 	d3.dsv(';')("data/metadata_prototype.csv", function(metadata){
 		var meta = metadata;
 		d.Metadata = $.grep(meta, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
@@ -1161,8 +1161,16 @@ function checkWindowSize() {
         $('#sidebar').addClass('sidebar-menu-collapsed');  
         $('#sidebar').removeClass('sidebar-menu-expanded');  
 		$('#sidebar-content').css('display','none');
+		$('.navbar-right').css('display','none');
 		$('.zoom-level-nav').css('left','80px');
     }
 }    
-checkWindowSize()
+checkWindowSize();
+
+mobile_anyway = function() {
+	$('.mobile-message').css('display','none');
+	$('.sidebar').css('display','block');
+	$('.map-wrapper').css('display','block');
+	generateCharts(d);
+}
 
