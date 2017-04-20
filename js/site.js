@@ -97,23 +97,22 @@ var load_dashboard = function() {
 		//Indicator data
 		var result = new GoogleSpreadsheetsParser(spreadsheetUrl,{sheetTitle: sheetTitle, hasTitle: true});
 		d.Rapportage = spreadsheetToJson(result,'data');
+		
+		//Detail 3W data
+		var data3W = new GoogleSpreadsheetsParser(spreadsheetUrl,{sheetTitle: '3W_data', hasTitle: true});
+		d.Detail_3W = spreadsheetToJson(data3W,'meta');
+		
 		//Geodata
 		d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
 			var object_name = "geo_level" +  (admlevel - 2);
 			d.Districts = topojson.feature(geo_data,geo_data.objects[object_name]);
 		
-			d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
-				var detail3W = data3W;
-				d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
-				d.Detail_3W = data3W;
-
-				//console.log(d);
-				// generate the actual content of the dashboard
-				generateCharts(d);
-				  
-				spinner_stop();
-			});
-			
+			console.log(d);
+			// generate the actual content of the dashboard
+			generateCharts(d);
+			  
+			spinner_stop();
+						
 			//Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
 			if (typeof L_PREFER_CANVAS !== 'undefined') {
 				$('#IEmodal').modal('show');
@@ -142,6 +141,17 @@ var reload_dashboard = function(d) {
 		d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
 	};
 	
+	//Detail 3W data
+	var data3W = new GoogleSpreadsheetsParser(spreadsheetUrl,{sheetTitle: '3W_data', hasTitle: true});
+	var Detail_3W_temp = spreadsheetToJson(data3W,'meta');
+	if (admlevel == 2) {
+		d.Detail_3W = Detail_3W_temp;
+	} else if (admlevel == 3) {
+		d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+	} else if (admlevel == 4) {
+		d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+	};
+	
 	//Geo-data
 	d3.json("data/geo_level" +  (admlevel - 2)  + ".json", function (geo_data) {
 		var object_name = "geo_level" +  (admlevel - 2);
@@ -152,26 +162,16 @@ var reload_dashboard = function(d) {
 			d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.properties.pcode_parent) > -1;}); 
 		};
 	
-		d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
-			var Detail_3W_temp = data3W;
-			if (admlevel == 2) {
-				d.Detail_3W = Detail_3W_temp;
-			} else if (admlevel == 3) {
-				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
-			} else if (admlevel == 4) {
-				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
-			};
-		  
-		  // generate the actual content of the dashboard
-		  generateCharts(d);
-		  
-		  spinner_stop();
-		  
-		  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
-		  if (typeof L_PREFER_CANVAS !== 'undefined') {
+		
+	    // generate the actual content of the dashboard
+	    generateCharts(d);
+	  
+	    spinner_stop();
+	  
+	    //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
+	    if (typeof L_PREFER_CANVAS !== 'undefined') {
 			$('#IEmodal').modal('show');
-		  }
-		});
+	    }
 	});
 
 };
@@ -444,7 +444,12 @@ var generateCharts = function (d){
                 .colors(['#BF002D'])
                 .colorDomain([0,0])
                 .colorAccessor(function(d, i){return 1;})  
-				.ordering(function(d) {return -d.value;})
+				.ordering(function(d) {return -d.value;}) 
+				// .on('filtered',function(chart,filters){
+					// if (chart.filters().length > 0) {
+						// map_coloring('activities_3W');
+					// }
+				// })
 				;
 				
 	organisation_chart.width(320).height(group_organisation.top(Infinity).length * 40)
@@ -455,6 +460,9 @@ var generateCharts = function (d){
                 .colorDomain([0,0])
                 .colorAccessor(function(d, i){return 1;})  
 				.ordering(function(d) {return -d.value;})
+				// .on('filtered',function(chart,filters){
+					// map_coloring('activities_3W');
+				// })
 				;
 	
 	///////////////////////////////
@@ -939,7 +947,7 @@ var generateCharts = function (d){
 	};
 
 	
-	map_coloring = function(id) {		// don't define with 'var' so it's a global function
+	map_coloring = function(id) {	
 
 		metric = id;	
 		metric_label = meta_label[id];
@@ -951,7 +959,7 @@ var generateCharts = function (d){
 		whereGroupSum_scores.dispose();
 		whereGroupSum_scores = whereDimension.group().reduceSum(function(d) { if (!meta_scorevar[metric]) {return d[metric];} else { return d[meta_scorevar[metric]];};});
 		colorrange();
-		if (metric == 'activities') {
+		if (metric == 'activities_3W') {
 			mapChart
 				.dimension(dim_pcode)
 				.group(group_pcode)				
