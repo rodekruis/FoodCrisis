@@ -20,7 +20,8 @@
 	"slick": "*",	
 	"topojson": "1.6.26",
 	"spin.js": "*",
-	"dc-addons": "*"
+	"dc-addons": "*",
+	"google-spreadsheets-parser": "*"
   },
   "resolutions": {
 	"d3": "3.5.17"

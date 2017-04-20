@@ -489,10 +489,10 @@ a.handle:hover {
 }
 
 /* mobile message */
-/* .mobile-message {
+.mobile-message {
   display: none;
 }
- */
+
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
   .map-wrapper,

@@ -5,9 +5,10 @@
 //////////////////////
 
 var spreadsheetKey = '1jMp_uQJrf354LCYJyWRola9D1ZR6_fj9Dfa3MmJFFEI';
+var spreadsheetUrl,sheetTitle;
 var country_code = 'All';
 var admlevel = 2;				// NOTE: For now, I keep the admlevels in the code as 2-4 instead of 0-2 which is the actual data. The principal works the same, and it keeps me from having to adjust everything now..
-var metric = 'popdensity';
+var metric = 'pop_density';
 var metric_label = '';
 var metric_year = '';
 var metric_source = '';
@@ -55,23 +56,25 @@ spinner_stop = function() {
 	spinner.stop();
 }
 //Function to translate Google Spreadsheet data to usable JSON
-var spreadsheetToJson = function(result) {
+var spreadsheetToJson = function(result,type) {
 	var data = [];
-	for (i=0;i<result.feed.entry.length;i++) {
-		record = result.feed.entry[i];
+	for (i=0;i<result.contents.length;i++) {
+		var record = result.contents[i];
 		var json_var = {};
-		json_var.pcode = record.title.$t;
-		var parts = record.content.$t.split(', ');
-		for (j=0;j<parts.length;j++) {
-			var parts2 = parts[j].split(': ');
-			var name = parts2[0];
-			json_var[name] = isNaN(Number(parts2[1])) ? parts2[1] : Number(parts2[1]);
+		for (j=0;j<result.titles.length;j++) {
+			var name = result.titles[j];
+			if (type == 'meta') {
+				json_var[name] = record[j] == '' ? "" : (isNaN(Number(record[j])) ? record[j] : Number(record[j]));
+			} else if (type == 'data') {
+				json_var[name] = record[j] == null ? 0 : (isNaN(Number(record[j])) ? record[j] : Number(record[j]));
+			}
+			
 		};
 		data[i] = json_var;
 	}
 	return data;
 }
-		
+
 //////////////////////////////////////
 // FUNCTION TO INITIALIZE DASHBOARD //
 //////////////////////////////////////
@@ -81,40 +84,42 @@ var load_dashboard = function() {
 	spinner_start();  
 	//Load data
 	d = {};
-	d3.dsv(';')("data/metadata_prototype.csv", function(metadata){
-		var meta = metadata;
-		d.Metadata = $.grep(meta, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
-		d3.dsv(';')("data/country_metadata.csv", function(metadata_country){
-			d.Country_meta = metadata_country;
-			var url_json = 	'https://spreadsheets.google.com/feeds/list/'+spreadsheetKey+'/' + (admlevel-1) + '/public/values?alt=json';
-			d3.json(url_json, function (error, result) {
-				d.Rapportage = spreadsheetToJson(result);
-				d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
-					var object_name = "geo_level" +  (admlevel - 2);
-					d.Districts = topojson.feature(geo_data,geo_data.objects[object_name]);
-				
-					d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
-						var detail3W = data3W;
-						d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
-						d.Detail_3W = data3W;
+	spreadsheetUrl = 'https://docs.google.com/spreadsheets/d/' + spreadsheetKey + '/pubhtml';
+	sheetTitle = 'adm' + (admlevel - 2);
+	//Country metadata
+	d3.dsv(';')("data/country_metadata.csv", function(metadata_country){
+		d.Country_meta = metadata_country;
+		
+		//Indicator metadata
+		var meta = new GoogleSpreadsheetsParser(spreadsheetUrl,{sheetTitle: 'metadata', hasTitle: true});
+		d.Metadata = $.grep(spreadsheetToJson(meta,'meta'), function(e){ return e.country_code == 'All' || e.country_code == country_code; });
+		
+		//Indicator data
+		var result = new GoogleSpreadsheetsParser(spreadsheetUrl,{sheetTitle: sheetTitle, hasTitle: true});
+		d.Rapportage = spreadsheetToJson(result,'data');
+		//Geodata
+		d3.json("data/geo_level" + (admlevel - 2) + ".json", function (geo_data) {
+			var object_name = "geo_level" +  (admlevel - 2);
+			d.Districts = topojson.feature(geo_data,geo_data.objects[object_name]);
+		
+			d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
+				var detail3W = data3W;
+				d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
+				d.Detail_3W = data3W;
 
-						//console.log(d);
-						// generate the actual content of the dashboard
-						generateCharts(d);
-						  
-						spinner_stop();
-					});
-					
-					//Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
-					if (typeof L_PREFER_CANVAS !== 'undefined') {
-						$('#IEmodal').modal('show');
-					}
-				});  
+				console.log(d);
+				// generate the actual content of the dashboard
+				generateCharts(d);
+				  
+				spinner_stop();
 			});
-			//});
-		});
-	});	
-
+			
+			//Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
+			if (typeof L_PREFER_CANVAS !== 'undefined') {
+				$('#IEmodal').modal('show');
+			}
+		}); 	
+	});
 };
 
 ///////////////////////////////////////////////////////////////
@@ -124,44 +129,48 @@ var load_dashboard = function() {
 var reload_dashboard = function(d) {
 	  
 	spinner_start();  
+	
 	//Load data  
-	var url_json = 	'https://spreadsheets.google.com/feeds/list/'+spreadsheetKey+'/' + (admlevel-1) + '/public/values?alt=json';
-	d3.json(url_json, function (error, result) {
-		var Rapportage_temp = spreadsheetToJson(result);
+	sheetTitle = 'adm' + (admlevel - 2);
+	
+	//Indicator data
+	var result = new GoogleSpreadsheetsParser(spreadsheetUrl,{sheetTitle: sheetTitle, hasTitle: true});
+	var Rapportage_temp = spreadsheetToJson(result,'data');
+	if (admlevel == 2) {
+		d.Rapportage = Rapportage_temp;
+	} else {
+		d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+	};
+	
+	//Geo-data
+	d3.json("data/geo_level" +  (admlevel - 2)  + ".json", function (geo_data) {
+		var object_name = "geo_level" +  (admlevel - 2);
+		var Districts_temp = topojson.feature(geo_data,geo_data.objects[object_name]);
 		if (admlevel == 2) {
-			d.Rapportage = Rapportage_temp;
+			d.Districts.features = Districts_temp.features;
 		} else {
-			d.Rapportage = $.grep(Rapportage_temp, function(e){ return e.pcodeparent == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+			d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.properties.pcode_parent) > -1;}); 
 		};
-		d3.json("data/geo_level" +  (admlevel - 2)  + ".json", function (geo_data) {
-			var object_name = "geo_level" +  (admlevel - 2);
-			var Districts_temp = topojson.feature(geo_data,geo_data.objects[object_name]);
+	
+		d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
+			var Detail_3W_temp = data3W;
 			if (admlevel == 2) {
-				d.Districts.features = Districts_temp.features;
-			} else {
-				d.Districts.features = $.grep(Districts_temp.features, function(e){ return e.properties.pcode_parent == parent_code; }); //parent_code_arr.indexOf(e.properties.pcode_parent) > -1;}); 
+				d.Detail_3W = Detail_3W_temp;
+			} else if (admlevel == 3) {
+				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
+			} else if (admlevel == 4) {
+				d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
 			};
-		
-			d3.dsv(';')("data/ind_detail_3W.csv", function(data3W){
-				var Detail_3W_temp = data3W;
-				if (admlevel == 2) {
-					d.Detail_3W = Detail_3W_temp;
-				} else if (admlevel == 3) {
-					d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode0 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
-				} else if (admlevel == 4) {
-					d.Detail_3W = $.grep(Detail_3W_temp, function(e){ return e.pcode1 == parent_code; }); //parent_code_arr.indexOf(e.pcode_parent) > -1;}); //
-				};
-			  
-			  // generate the actual content of the dashboard
-			  generateCharts(d);
-			  
-			  spinner_stop();
-			  
-			  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
-			  if (typeof L_PREFER_CANVAS !== 'undefined') {
-				$('#IEmodal').modal('show');
-			  }
-			});
+		  
+		  // generate the actual content of the dashboard
+		  generateCharts(d);
+		  
+		  spinner_stop();
+		  
+		  //Check if browser is IE (L_PREFER_CANVAS is a result from an earlier IE-check in layout.server.view.html)	
+		  if (typeof L_PREFER_CANVAS !== 'undefined') {
+			$('#IEmodal').modal('show');
+		  }
 		});
 	});
 
@@ -388,9 +397,11 @@ var generateCharts = function (d){
 			var weight_var = t.weight_var;
 			dimensions[name] = totaalDim.group().reduce(reduceAddAvg([name],[weight_var]),reduceRemoveAvg([name],[weight_var]),reduceInitialAvg);
 		} else if (t.propertyPath === 'value') {
-			dimensions[name] = totaalDim.group().reduceSum(function(d) {return d[name];});
+			dimensions[name] = totaalDim.group().reduceSum(function(d) { return d[name];});
 		}
 	});
+	console.log(dimensions.static_clinics.top(Infinity));
+
 	// Make a separate one for the filling of the bar charts (based on 0-10 score per indicator)
 	var dimensions_scores = [];
 	tables.forEach(function(t) {
@@ -535,11 +546,13 @@ var generateCharts = function (d){
 		
 		//Dynamically create HTML-elements for all indicator tables
 		var general = document.getElementById('general');
-		var group3W = document.getElementById('group3W');
+		var group_3W = document.getElementById('group_3W');
 		var group_food = document.getElementById('group_food');
+		var group_health = document.getElementById('group_health');
 		while (general.firstChild) { general.removeChild(general.firstChild); }
-		while (group3W.firstChild) { group3W.removeChild(group3W.firstChild); }
+		while (group_3W.firstChild) { group_3W.removeChild(group_3W.firstChild); }
 		while (group_food.firstChild) { group_food.removeChild(group_food.firstChild); }
+		while (group_health.firstChild) { group_health.removeChild(group_health.firstChild); }
 		for (var i=0;i<tables.length;i++) {
 			var record = tables[i];
 			
@@ -822,7 +835,6 @@ var generateCharts = function (d){
 		})
 		.legend(dc.leafletLegend().position('bottomright'))
 		.renderPopup(true)
-//		.turnOnControls(true)
 		//Set up what happens when clicking on the map (popup appearing mainly)
 		.on('filtered',function(chart,filters){
 			window.filters = chart.filters();
