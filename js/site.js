@@ -107,7 +107,7 @@ var load_dashboard = function() {
 				d.Detail_3W = $.grep(detail3W, function(e){ return e.country_code == 'All' || e.country_code == country_code; });
 				d.Detail_3W = data3W;
 
-				console.log(d);
+				//console.log(d);
 				// generate the actual content of the dashboard
 				generateCharts(d);
 				  
