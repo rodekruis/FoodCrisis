@@ -400,8 +400,7 @@ var generateCharts = function (d){
 			dimensions[name] = totaalDim.group().reduceSum(function(d) { return d[name];});
 		}
 	});
-	console.log(dimensions.static_clinics.top(Infinity));
-
+	
 	// Make a separate one for the filling of the bar charts (based on 0-10 score per indicator)
 	var dimensions_scores = [];
 	tables.forEach(function(t) {
