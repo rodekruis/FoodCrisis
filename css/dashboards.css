@@ -538,6 +538,12 @@ a.handle:hover {
 	top: 90%;
 }
 
+/* Override leaflet-legend css */
+.legend i {
+  width: 16px;
+  height: 16px;
+}
+
 #loading-bar-spinner {
   display: block;
   position: fixed;
@@ -605,4 +611,5 @@ body {
 .sidebar-menu-expanded {
     width: 380px;
 }
+
 
